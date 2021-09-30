@@ -33,6 +33,12 @@ dependencies:
   carousel_slider: ^4.0.0
   syncfusion_flutter_sliders: ^19.2.62
   google_fonts:
+  connectivity_plus: ^1.1.0
+  internet_connection_checker: ^0.0.1+2
+  url_launcher:
+  shared_preferences:
+  overlay_support:
+  http:
 
 dev_dependencies:
   flutter_test:

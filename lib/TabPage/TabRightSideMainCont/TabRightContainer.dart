@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightBottomContainer.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightTimeContainer.dart';
 
@@ -29,6 +30,15 @@ class _TabRightContainerState extends State<TabRightContainer> {
          SizedBox(
            height: height*0.010,
          ),
+          Text("ROOMS",
+            style: GoogleFonts.poppins(color: Color.fromRGBO(46, 56, 48, 1.0),fontSize: height*0.030,fontWeight: FontWeight.bold),
+          ),
+          // SizedBox(
+          //   height: height*0.010,
+          // ),
+          Text("All",
+            style: GoogleFonts.poppins(fontSize: height*0.020,fontWeight: FontWeight.bold),
+          ),
          TabRightBottomContainers(),
           SizedBox(
             height: height*0.010,

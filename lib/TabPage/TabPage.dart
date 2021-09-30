@@ -24,7 +24,7 @@ class _TabPageState extends State<TabPage> {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       //backgroundColor: Colors.black,
-      //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Container(
         height: height*1.0,
         width: width*1.0,
