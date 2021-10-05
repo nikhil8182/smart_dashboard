@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftMainContainerTitle.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
+
 
   bool get isDarkMode {
     if (themeMode == ThemeMode.system) {
@@ -17,6 +19,23 @@ class ThemeProvider extends ChangeNotifier {
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
+
+
+  List<Data> listData = [
+    Data(data: "Room Name"),
+  ];
+
+  void add(String newValue){
+    final task  = Data(data: newValue);
+    listData.add(task);
+    notifyListeners();
+  }
+
+  void remove(Data data){
+    listData.remove(data);
+    notifyListeners();
+  }
+
 }
 
 class MyThemes {
@@ -25,7 +44,8 @@ class MyThemes {
     primaryColor: Color.fromRGBO(90, 90, 90, 0.40),
     //colorScheme: ColorScheme.dark(),
     backgroundColor: Colors.white,
-    textTheme:TextTheme(bodyText2: TextStyle(color: Color.fromRGBO(163, 163, 163, 1.0))),
+    textTheme:TextTheme(bodyText2: TextStyle(color: Color.fromRGBO(
+        189, 186, 186, 1.0))),
     iconTheme: IconThemeData(color: Colors.purple.shade200, opacity: 0.8),
   );
 
@@ -34,7 +54,14 @@ class MyThemes {
     scaffoldBackgroundColor: Colors.white,
     primaryColor: Colors.blueGrey.shade50.withOpacity(1.0),
     // colorScheme: ColorScheme.light(),
-    textTheme:TextTheme(bodyText2: TextStyle(color: Color.fromRGBO(163, 163, 163, 1.0))),
+    textTheme:TextTheme(bodyText2: TextStyle(color: Color.fromRGBO(
+        219, 214, 214, 1.0))),//163, 163, 163, 1.0
     iconTheme: IconThemeData(color: Colors.red, opacity: 0.8),
   );
+}
+
+
+class Data{
+  final String data;
+  Data({this.data});
 }

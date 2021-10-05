@@ -13,432 +13,433 @@ import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftLightsCont.da
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftMainContainerTitle.dart';
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftOtherScrollView.dart';
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftOthersCont.dart';
+import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightRoomsContainer.dart';
 import 'package:smart_dashboard/theme/change_theme_button_widget.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
 
 
 class TabLeftContainer extends StatefulWidget {
 
-TabLeftContainer({this.roomName,this.index,this.ip});
-  final String roomName;
-  final int index;
-  final String ip;
+// TabLeftContainer({this.roomName,this.index,this.ip});
+//   final String roomName;
+//   final int index;
+//   final String ip;
 
   @override
   _TabLeftContainerState createState() => _TabLeftContainerState();
 }
 
 class _TabLeftContainerState extends State<TabLeftContainer>     with WidgetsBindingObserver {
-  List<Widget> _buildButtonsWithNames() {
-    //print(" im inside the buildbutton--------------===========");
-    buttonsList.clear();
-    for (int i = 0; i < data.length; i++) {
-      //print("im inside the build button");
-      buttonOffline(i);
-    }
-    setState(() {
-      buttonsList = buttonsList.toSet().toList();
-    });
-    return buttonsList;
-  }
+  // List<Widget> _buildButtonsWithNames() {
+  //   //print(" im inside the buildbutton--------------===========");
+  //   buttonsList.clear();
+  //   for (int i = 0; i < data.length; i++) {
+  //     //print("im inside the build button");
+  //     buttonOffline(i);
+  //   }
+  //   setState(() {
+  //     buttonsList = buttonsList.toSet().toList();
+  //   });
+  //   return buttonsList;
+  // }
 
   String up;
 
-  void buttonOffline(int i) {
-    //print("${data[i]}");
-    if (data[i].toString().contains("Button") &&
-        data[i].toString().contains("Admin Room")) {
-      // print("im inside the button above button list container");
-      // print("$buttonsList ");
-      buttonsList.add(Container(
-        child: InkWell(
-            onTap: () {
-              //print("im inside the inkwell on Tap()");
-              check().then((intenet) {
-                //print("im inside the inkwell");
-                if (intenet) {
-                  // Internet Present Case
-                  //print("im inside the button above if ");
-                  if ((data_value[0][i] == 1) || (data_value[0][i] == "1")) {
-                    //print("im inside the if of inkwell ++++++++++");
-                    setState(() {
-                      data_value[0][i] = 0;
-                      up = "False";
-                    });
-                  } else {
-                    setState(() {
-                      data_value[0][i] = 1;
-                      up = "True";
-                    });
-                  }
-                  setState(() {
-                    // if(widget.check_url==false){
-                    //   update_value(data[i],data_value[0][i], i);
-                    // }else{
-                    //   update_value(data[i],up, i);
-                    // }
-                    update_value(data[i], up, i);
-                    // print("${data_value[0][i]} data value is =================");
-                    // print("$up the value of up is *************");
-                    // print("$i after i is+++++++++++++++++------");
-                    _buildButtonsWithNames();
-                  });
-                  //print("Connection: present");
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (_) => AlertDialog(
-                        backgroundColor: Colors.black,
-                        title: Text(
-                          "No Internet Connection",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        content: Text(
-                            "Please check your Internet Connection",
-                            style: TextStyle(color: Colors.white)),
-                      ));
-                  //print("Connection: not present");
-                }
-              });
-            },
-            // child: Container(
-            //     height: MediaQuery.of(context).size.height * 0.17,
-            //     width: MediaQuery.of(context).size.width * 0.37,
-            //     padding: const EdgeInsets.all(10),
-            //     margin: EdgeInsets.all(10),
-            //     decoration: BoxDecoration(
-            //         color: (data_value[0][i] == 0) || (data_value[0][i] == "0")? Colors.grey[900]:Colors.orange,
-            //         borderRadius: BorderRadius.circular(20.0),
-            //         boxShadow: [
-            //           BoxShadow(
-            //               offset: Offset(0, 0),
-            //               color: Colors.grey[700],
-            //               blurRadius: 1,
-            //               spreadRadius: 1),
-            //           BoxShadow(
-            //               offset: Offset(1, 1),
-            //               color: Colors.black87,
-            //               blurRadius: 1,
-            //               spreadRadius: 1)
-            //         ]),
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.center,
-            //       crossAxisAlignment: CrossAxisAlignment.center,
-            //       children: [
-            //         Container(
-            //           height: MediaQuery.of(context).size.height * 0.08,
-            //           width: MediaQuery.of(context).size.width * 0.25,
-            //           child:
-            //           SvgPicture.asset(
-            //             "images/light.svg",
-            //             height: MediaQuery.of(context).size.height * 0.010,
-            //           ),
-            //         ),
-            //         SizedBox(
-            //           height: MediaQuery.of(context).size.height * 0.015,
-            //         ),
-            //         Container(
-            //           child: Column(
-            //             children: [
-            //               (data_value[0][i] == 1) || (data_value[0][i] == "1")
-            //                   ? AutoSizeText(
-            //                 data[i]
-            //                     .toString()
-            //                     .split("Button")[0]
-            //                     .replaceAll("_", " ") +
-            //                     "",
-            //                 style: GoogleFonts.robotoSlab(
-            //                   /*fontSize: 12,*/ color: Colors.white),
-            //                 maxLines: 1,
-            //                 minFontSize: 7,
-            //               )
-            //                   : AutoSizeText(
-            //                 data[i]
-            //                     .toString()
-            //                     .split("Button")[0]
-            //                     .replaceAll("_", " ") +
-            //                     "",
-            //                 style: GoogleFonts.robotoSlab(
-            //                   /*fontSize: 12,*/ color: Colors.white),
-            //                 maxLines: 1,
-            //                 minFontSize: 7,
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ))),
-            child: Container(
-                padding: EdgeInsets.all(20.0),
-                height: MediaQuery.of(context).size.height * 0.20,
-                width: MediaQuery.of(context).size.width * 0.12,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  color: (data_value[0][i] == 0) || (data_value[0][i] == "0")
-                      ? Theme.of(context).scaffoldBackgroundColor
-                      : Color.fromRGBO(247, 179, 28, 1.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.060,
-                      width: MediaQuery.of(context).size.width * 0.04,
-                      decoration: BoxDecoration(
-                          color: Color.fromRGBO(247, 179, 28, 0.19),
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "images/icons/light.svg",
-                          height: MediaQuery.of(context).size.height * 0.035,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.015,
-                    ),
-                    (data_value[0][i] == 1) || (data_value[0][i] == "1")
-                        ? Text(data[i].toString().split("Button")[0].replaceAll("_", " ") +"",
-                      style: GoogleFonts.poppins(
-                          color: Theme.of(context).backgroundColor,
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.018),
-                    )
-                        : Text(data[i].toString() .split("Button")[0].replaceAll("_", " ") + "",
-                      style: GoogleFonts.poppins(
-                          color: Theme.of(context).backgroundColor,
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.018),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.006,
-                    ),
-                    Text(
-                      "off",
-                      style: GoogleFonts.poppins(
-                          fontSize: MediaQuery.of(context).size.height * 0.015),
-                    ),
-                  ],
-                ))),
-      ));
-    } else if (data[i].toString().contains("Push") &&
-        data[i].toString().contains("Admin Room")) {
-      buttonsList.add(Container(
-          child: InkWell(
-              onTap: () {
-                check().then((intenet) {
-                  if (intenet) {
-                    // Internet Present Case
-                    if ((data_value[0][i] == 1) || (data_value[0][i] == "1")) {
-                      setState(() {
-                        data_value[0][i] = 0;
-                        up = "False";
-                      });
-                    } else {
-                      setState(() {
-                        data_value[0][i] = 1;
-                        up = "True";
-                      });
-                    }
-                    setState(() {
-                      // if(widget.check_url==false){
-                      //   update_value(data[i],data_value[0][i], i);
-                      // }else{
-                      //   update_value(data[i],up, i);
-                      // }
-
-                      update_value(data[i], up, i);
-                      _buildButtonsWithNames();
-                    });
-                    //print("Connection: present");
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          backgroundColor: Colors.black,
-                          title: Text(
-                            "No Internet Connection",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          content: Text(
-                              "Please check your Internet Connection",
-                              style: TextStyle(color: Colors.white)),
-                        ));
-                    //print("Connection: not present");
-                  }
-                });
-              },
-              child: Container(
-                  padding: EdgeInsets.all(20.0),
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  width: MediaQuery.of(context).size.width * 0.12,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: (data_value[0][i] == 0) || (data_value[0][i] == "0")
-                        ? Theme.of(context).scaffoldBackgroundColor
-                        : Color.fromRGBO(247, 179, 28, 1.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.060,
-                        width: MediaQuery.of(context).size.width * 0.04,
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(247, 179, 28, 0.19),
-                            borderRadius: BorderRadius.circular(15.0)),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "images/icons/light.svg",
-                            height: MediaQuery.of(context).size.height * 0.035,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.015,
-                      ),
-                      (data_value[0][i] == 1) || (data_value[0][i] == "1")
-                          ? Text(
-                        data[i]
-                            .toString()
-                            .split("Fan")[0]
-                            .replaceAll("_", " ") +
-                            "",
-                        style: GoogleFonts.poppins(
-                            color: Theme.of(context).backgroundColor,
-                            fontSize:
-                            MediaQuery.of(context).size.height * 0.018),
-                      ): Text(
-                        data[i]
-                            .toString()
-                            .split("Fan")[0]
-                            .replaceAll("_", " ") +
-                            "",style: GoogleFonts.poppins(
-                          color: Theme.of(context).backgroundColor,
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.018),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.006,
-                      ),
-                      Text(
-                        "off",
-                        style: GoogleFonts.poppins(
-                            fontSize:
-                            MediaQuery.of(context).size.height * 0.015),
-                      ),
-                    ],
-                  )))));
-    } else if (data[i].toString().contains("Switch") &&
-        data[i].toString().contains("Admin Room")) {
-      buttonsList.add(Container(
-          child: InkWell(
-              onTap: () {
-                check().then((intenet) {
-                  if (intenet) {
-                    // Internet Present Case
-                    if ((data_value[0][i] == 1) || (data_value[0][i] == "1")) {
-                      setState(() {
-                        data_value[0][i] = 0;
-                        up = "False";
-                      });
-                    } else {
-                      setState(() {
-                        data_value[0][i] = 1;
-                        up = "True";
-                      });
-                    }
-                    setState(() {
-                      // if(widget.check_url==false){
-                      //   update_value(data[i],data_value[0][i], i);
-                      // }else{
-                      //   update_value(data[i],up, i);
-                      // }
-
-                      update_value(data[i], up, i);
-                      _buildButtonsWithNames();
-                    });
-                    //print("Connection: present");
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (_) => AlertDialog(
-                          backgroundColor: Colors.black,
-                          title: Text(
-                            "No Internet Connection",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          content: Text(
-                              "Please check your Internet Connection",
-                              style: TextStyle(color: Colors.white)),
-                        ));
-                    //print("Connection: not present");
-                  }
-                });
-              },
-              child: Container(
-                  padding: EdgeInsets.all(20.0),
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  width: MediaQuery.of(context).size.width * 0.12,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25.0),
-                    color: (data_value[0][i] == 0) || (data_value[0][i] == "0")
-                        ? Theme.of(context).scaffoldBackgroundColor
-                        : Color.fromRGBO(247, 179, 28, 1.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.060,
-                        width: MediaQuery.of(context).size.width * 0.04,
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(247, 179, 28, 0.19),
-                            borderRadius: BorderRadius.circular(15.0)),
-                        child: Center(
-                          child: SvgPicture.asset(
-                            "images/icons/light.svg",
-                            height: MediaQuery.of(context).size.height * 0.035,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.015,
-                      ),
-                      (data_value[0][i] == 1) || (data_value[0][i] == "1")
-                          ? Text(
-                        data[i]
-                            .toString()
-                            .split("Switch")[0]
-                            .replaceAll("_", " ") +
-                            "",
-                        style: GoogleFonts.poppins(
-                            color: Theme.of(context).backgroundColor,
-                            fontSize:
-                            MediaQuery.of(context).size.height * 0.018),
-                      ) : Text(
-                        data[i]
-                            .toString()
-                            .split("Switch")[0]
-                            .replaceAll("_", " ") +
-                            "",style: GoogleFonts.poppins(
-                          color: Theme.of(context).backgroundColor,
-                          fontSize:
-                          MediaQuery.of(context).size.height * 0.018),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.006,
-                      ),
-                      Text(
-                        "off",
-                        style: GoogleFonts.poppins(
-                            fontSize:
-                            MediaQuery.of(context).size.height * 0.015),
-                      ),
-                    ],
-                  )))));
-    }
-  }
+  // void buttonOffline(int i) {
+  //   //print("${data[i]}");
+  //   if (data[i].toString().contains("Button") &&
+  //       data[i].toString().contains(widget.roomName)) {
+  //     // print("im inside the button above button list container");
+  //     // print("$buttonsList ");
+  //     buttonsList.add(Container(
+  //       child: InkWell(
+  //           onTap: () {
+  //             //print("im inside the inkwell on Tap()");
+  //             check().then((intenet) {
+  //               //print("im inside the inkwell");
+  //               if (intenet) {
+  //                 // Internet Present Case
+  //                 //print("im inside the button above if ");
+  //                 if ((data_value[0][i] == 1) || (data_value[0][i] == "1")) {
+  //                   //print("im inside the if of inkwell ++++++++++");
+  //                   setState(() {
+  //                     data_value[0][i] = 0;
+  //                     up = "False";
+  //                   });
+  //                 } else {
+  //                   setState(() {
+  //                     data_value[0][i] = 1;
+  //                     up = "True";
+  //                   });
+  //                 }
+  //                 setState(() {
+  //                   // if(widget.check_url==false){
+  //                   //   update_value(data[i],data_value[0][i], i);
+  //                   // }else{
+  //                   //   update_value(data[i],up, i);
+  //                   // }
+  //                   update_value(data[i], up, i);
+  //                   // print("${data_value[0][i]} data value is =================");
+  //                   // print("$up the value of up is *************");
+  //                   // print("$i after i is+++++++++++++++++------");
+  //                   _buildButtonsWithNames();
+  //                 });
+  //                 //print("Connection: present");
+  //               } else {
+  //                 showDialog(
+  //                     context: context,
+  //                     builder: (_) => AlertDialog(
+  //                       backgroundColor: Colors.black,
+  //                       title: Text(
+  //                         "No Internet Connection",
+  //                         style: TextStyle(color: Colors.white),
+  //                       ),
+  //                       content: Text(
+  //                           "Please check your Internet Connection",
+  //                           style: TextStyle(color: Colors.white)),
+  //                     ));
+  //                 //print("Connection: not present");
+  //               }
+  //             });
+  //           },
+  //           // child: Container(
+  //           //     height: MediaQuery.of(context).size.height * 0.17,
+  //           //     width: MediaQuery.of(context).size.width * 0.37,
+  //           //     padding: const EdgeInsets.all(10),
+  //           //     margin: EdgeInsets.all(10),
+  //           //     decoration: BoxDecoration(
+  //           //         color: (data_value[0][i] == 0) || (data_value[0][i] == "0")? Colors.grey[900]:Colors.orange,
+  //           //         borderRadius: BorderRadius.circular(20.0),
+  //           //         boxShadow: [
+  //           //           BoxShadow(
+  //           //               offset: Offset(0, 0),
+  //           //               color: Colors.grey[700],
+  //           //               blurRadius: 1,
+  //           //               spreadRadius: 1),
+  //           //           BoxShadow(
+  //           //               offset: Offset(1, 1),
+  //           //               color: Colors.black87,
+  //           //               blurRadius: 1,
+  //           //               spreadRadius: 1)
+  //           //         ]),
+  //           //     child: Column(
+  //           //       mainAxisAlignment: MainAxisAlignment.center,
+  //           //       crossAxisAlignment: CrossAxisAlignment.center,
+  //           //       children: [
+  //           //         Container(
+  //           //           height: MediaQuery.of(context).size.height * 0.08,
+  //           //           width: MediaQuery.of(context).size.width * 0.25,
+  //           //           child:
+  //           //           SvgPicture.asset(
+  //           //             "images/light.svg",
+  //           //             height: MediaQuery.of(context).size.height * 0.010,
+  //           //           ),
+  //           //         ),
+  //           //         SizedBox(
+  //           //           height: MediaQuery.of(context).size.height * 0.015,
+  //           //         ),
+  //           //         Container(
+  //           //           child: Column(
+  //           //             children: [
+  //           //               (data_value[0][i] == 1) || (data_value[0][i] == "1")
+  //           //                   ? AutoSizeText(
+  //           //                 data[i]
+  //           //                     .toString()
+  //           //                     .split("Button")[0]
+  //           //                     .replaceAll("_", " ") +
+  //           //                     "",
+  //           //                 style: GoogleFonts.robotoSlab(
+  //           //                   /*fontSize: 12,*/ color: Colors.white),
+  //           //                 maxLines: 1,
+  //           //                 minFontSize: 7,
+  //           //               )
+  //           //                   : AutoSizeText(
+  //           //                 data[i]
+  //           //                     .toString()
+  //           //                     .split("Button")[0]
+  //           //                     .replaceAll("_", " ") +
+  //           //                     "",
+  //           //                 style: GoogleFonts.robotoSlab(
+  //           //                   /*fontSize: 12,*/ color: Colors.white),
+  //           //                 maxLines: 1,
+  //           //                 minFontSize: 7,
+  //           //               ),
+  //           //             ],
+  //           //           ),
+  //           //         ),
+  //           //       ],
+  //           //     ))),
+  //           child: Container(
+  //               padding: EdgeInsets.all(20.0),
+  //               height: MediaQuery.of(context).size.height * 0.20,
+  //               width: MediaQuery.of(context).size.width * 0.12,
+  //               decoration: BoxDecoration(
+  //                 borderRadius: BorderRadius.circular(25.0),
+  //                 color: (data_value[0][i] == 0) || (data_value[0][i] == "0")
+  //                     ? Theme.of(context).scaffoldBackgroundColor
+  //                     : Color.fromRGBO(247, 179, 28, 1.0),
+  //               ),
+  //               child: Column(
+  //                 crossAxisAlignment: CrossAxisAlignment.start,
+  //                 children: [
+  //                   Container(
+  //                     height: MediaQuery.of(context).size.height * 0.060,
+  //                     width: MediaQuery.of(context).size.width * 0.04,
+  //                     decoration: BoxDecoration(
+  //                         color: Color.fromRGBO(247, 179, 28, 0.19),
+  //                         borderRadius: BorderRadius.circular(15.0)),
+  //                     child: Center(
+  //                       child: SvgPicture.asset(
+  //                         "images/icons/light.svg",
+  //                         height: MediaQuery.of(context).size.height * 0.035,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                   SizedBox(
+  //                     height: MediaQuery.of(context).size.height * 0.015,
+  //                   ),
+  //                   (data_value[0][i] == 1) || (data_value[0][i] == "1")
+  //                       ? Text(data[i].toString().split("Button")[0].replaceAll("_", " ") +"",
+  //                     style: GoogleFonts.poppins(
+  //                         color: Theme.of(context).backgroundColor,
+  //                         fontSize:
+  //                         MediaQuery.of(context).size.height * 0.018),
+  //                   )
+  //                       : Text(data[i].toString() .split("Button")[0].replaceAll("_", " ") + "",
+  //                     style: GoogleFonts.poppins(
+  //                         color: Theme.of(context).backgroundColor,
+  //                         fontSize:
+  //                         MediaQuery.of(context).size.height * 0.018),
+  //                   ),
+  //                   SizedBox(
+  //                     height: MediaQuery.of(context).size.height * 0.006,
+  //                   ),
+  //                   Text(
+  //                     "off",
+  //                     style: GoogleFonts.poppins(
+  //                         fontSize: MediaQuery.of(context).size.height * 0.015),
+  //                   ),
+  //                 ],
+  //               ))),
+  //     ));
+  //   } else if (data[i].toString().contains("Push") &&
+  //       data[i].toString().contains(widget.roomName)) {
+  //     buttonsList.add(Container(
+  //         child: InkWell(
+  //             onTap: () {
+  //               check().then((intenet) {
+  //                 if (intenet) {
+  //                   // Internet Present Case
+  //                   if ((data_value[0][i] == 1) || (data_value[0][i] == "1")) {
+  //                     setState(() {
+  //                       data_value[0][i] = 0;
+  //                       up = "False";
+  //                     });
+  //                   } else {
+  //                     setState(() {
+  //                       data_value[0][i] = 1;
+  //                       up = "True";
+  //                     });
+  //                   }
+  //                   setState(() {
+  //                     // if(widget.check_url==false){
+  //                     //   update_value(data[i],data_value[0][i], i);
+  //                     // }else{
+  //                     //   update_value(data[i],up, i);
+  //                     // }
+  //
+  //                     update_value(data[i], up, i);
+  //                     _buildButtonsWithNames();
+  //                   });
+  //                   //print("Connection: present");
+  //                 } else {
+  //                   showDialog(
+  //                       context: context,
+  //                       builder: (_) => AlertDialog(
+  //                         backgroundColor: Colors.black,
+  //                         title: Text(
+  //                           "No Internet Connection",
+  //                           style: TextStyle(color: Colors.white),
+  //                         ),
+  //                         content: Text(
+  //                             "Please check your Internet Connection",
+  //                             style: TextStyle(color: Colors.white)),
+  //                       ));
+  //                   //print("Connection: not present");
+  //                 }
+  //               });
+  //             },
+  //             child: Container(
+  //                 padding: EdgeInsets.all(20.0),
+  //                 height: MediaQuery.of(context).size.height * 0.20,
+  //                 width: MediaQuery.of(context).size.width * 0.12,
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(25.0),
+  //                   color: (data_value[0][i] == 0) || (data_value[0][i] == "0")
+  //                       ? Theme.of(context).scaffoldBackgroundColor
+  //                       : Color.fromRGBO(247, 179, 28, 1.0),
+  //                 ),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Container(
+  //                       height: MediaQuery.of(context).size.height * 0.060,
+  //                       width: MediaQuery.of(context).size.width * 0.04,
+  //                       decoration: BoxDecoration(
+  //                           color: Color.fromRGBO(247, 179, 28, 0.19),
+  //                           borderRadius: BorderRadius.circular(15.0)),
+  //                       child: Center(
+  //                         child: SvgPicture.asset(
+  //                           "images/icons/light.svg",
+  //                           height: MediaQuery.of(context).size.height * 0.035,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     SizedBox(
+  //                       height: MediaQuery.of(context).size.height * 0.015,
+  //                     ),
+  //                     (data_value[0][i] == 1) || (data_value[0][i] == "1")
+  //                         ? Text(
+  //                       data[i]
+  //                           .toString()
+  //                           .split("Fan")[0]
+  //                           .replaceAll("_", " ") +
+  //                           "",
+  //                       style: GoogleFonts.poppins(
+  //                           color: Theme.of(context).backgroundColor,
+  //                           fontSize:
+  //                           MediaQuery.of(context).size.height * 0.018),
+  //                     ): Text(
+  //                       data[i]
+  //                           .toString()
+  //                           .split("Fan")[0]
+  //                           .replaceAll("_", " ") +
+  //                           "",style: GoogleFonts.poppins(
+  //                         color: Theme.of(context).backgroundColor,
+  //                         fontSize:
+  //                         MediaQuery.of(context).size.height * 0.018),
+  //                     ),
+  //                     SizedBox(
+  //                       height: MediaQuery.of(context).size.height * 0.006,
+  //                     ),
+  //                     Text(
+  //                       "off",
+  //                       style: GoogleFonts.poppins(
+  //                           fontSize:
+  //                           MediaQuery.of(context).size.height * 0.015),
+  //                     ),
+  //                   ],
+  //                 )))));
+  //   } else if (data[i].toString().contains("Switch") &&
+  //       data[i].toString().contains(widget.roomName)) {
+  //     buttonsList.add(Container(
+  //         child: InkWell(
+  //             onTap: () {
+  //               check().then((intenet) {
+  //                 if (intenet) {
+  //                   // Internet Present Case
+  //                   if ((data_value[0][i] == 1) || (data_value[0][i] == "1")) {
+  //                     setState(() {
+  //                       data_value[0][i] = 0;
+  //                       up = "False";
+  //                     });
+  //                   } else {
+  //                     setState(() {
+  //                       data_value[0][i] = 1;
+  //                       up = "True";
+  //                     });
+  //                   }
+  //                   setState(() {
+  //                     // if(widget.check_url==false){
+  //                     //   update_value(data[i],data_value[0][i], i);
+  //                     // }else{
+  //                     //   update_value(data[i],up, i);
+  //                     // }
+  //
+  //                     update_value(data[i], up, i);
+  //                     _buildButtonsWithNames();
+  //                   });
+  //                   //print("Connection: present");
+  //                 } else {
+  //                   showDialog(
+  //                       context: context,
+  //                       builder: (_) => AlertDialog(
+  //                         backgroundColor: Colors.black,
+  //                         title: Text(
+  //                           "No Internet Connection",
+  //                           style: TextStyle(color: Colors.white),
+  //                         ),
+  //                         content: Text(
+  //                             "Please check your Internet Connection",
+  //                             style: TextStyle(color: Colors.white)),
+  //                       ));
+  //                   //print("Connection: not present");
+  //                 }
+  //               });
+  //             },
+  //             child: Container(
+  //                 padding: EdgeInsets.all(20.0),
+  //                 height: MediaQuery.of(context).size.height * 0.20,
+  //                 width: MediaQuery.of(context).size.width * 0.12,
+  //                 decoration: BoxDecoration(
+  //                   borderRadius: BorderRadius.circular(25.0),
+  //                   color: (data_value[0][i] == 0) || (data_value[0][i] == "0")
+  //                       ? Theme.of(context).scaffoldBackgroundColor
+  //                       : Color.fromRGBO(247, 179, 28, 1.0),
+  //                 ),
+  //                 child: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Container(
+  //                       height: MediaQuery.of(context).size.height * 0.060,
+  //                       width: MediaQuery.of(context).size.width * 0.04,
+  //                       decoration: BoxDecoration(
+  //                           color: Color.fromRGBO(247, 179, 28, 0.19),
+  //                           borderRadius: BorderRadius.circular(15.0)),
+  //                       child: Center(
+  //                         child: SvgPicture.asset(
+  //                           "images/icons/light.svg",
+  //                           height: MediaQuery.of(context).size.height * 0.035,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     SizedBox(
+  //                       height: MediaQuery.of(context).size.height * 0.015,
+  //                     ),
+  //                     (data_value[0][i] == 1) || (data_value[0][i] == "1")
+  //                         ? Text(
+  //                       data[i]
+  //                           .toString()
+  //                           .split("Switch")[0]
+  //                           .replaceAll("_", " ") +
+  //                           "",
+  //                       style: GoogleFonts.poppins(
+  //                           color: Theme.of(context).backgroundColor,
+  //                           fontSize:
+  //                           MediaQuery.of(context).size.height * 0.018),
+  //                     ) : Text(
+  //                       data[i]
+  //                           .toString()
+  //                           .split("Switch")[0]
+  //                           .replaceAll("_", " ") +
+  //                           "",style: GoogleFonts.poppins(
+  //                         color: Theme.of(context).backgroundColor,
+  //                         fontSize:
+  //                         MediaQuery.of(context).size.height * 0.018),
+  //                     ),
+  //                     SizedBox(
+  //                       height: MediaQuery.of(context).size.height * 0.006,
+  //                     ),
+  //                     Text(
+  //                       "off",
+  //                       style: GoogleFonts.poppins(
+  //                           fontSize:
+  //                           MediaQuery.of(context).size.height * 0.015),
+  //                     ),
+  //                   ],
+  //                 )))));
+  //   }
+  // }
 
   SharedPreferences loginData;
   String ip = "192.168.1.18:8000";
@@ -454,35 +455,35 @@ class _TabLeftContainerState extends State<TabLeftContainer>     with WidgetsBin
   //   });
   // }
 
-  Future<http.Response> update_value(button, button_value, i) async {
-    final response = await http.get(Uri.http("$ip", "/$button/$button_value"));
-    if (response.statusCode == 200) {
-      result = true;
-      print("im inside the update the value");
-      // print("response 1 : ${response.body}");
-      if (response.body != "success") ;
-      // _showScaffold("Update Failed, Please check server or internet connection and retry");
-    } else {
-      if ((data_value[0][i] == 0) || (data_value[0][i] == "0")) {
-        setState(() {
-          print("im inside the if loop of update value");
-          data_value[0][i] = 1;
-          _buildButtonsWithNames();
-        });
-      } else {
-        setState(() {
-          print("im inside the else case of update values");
-          data_value[0][i] = 0;
-          _buildButtonsWithNames();
-        });
-      }
-      result = false;
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
-    }
-    return response;
-  }
+  // Future<http.Response> update_value(button, button_value, i) async {
+  //   final response = await http.get(Uri.http("$ip", "/$button/$button_value"));
+  //   if (response.statusCode == 200) {
+  //     result = true;
+  //     print("im inside the update the value");
+  //     // print("response 1 : ${response.body}");
+  //     if (response.body != "success") ;
+  //     // _showScaffold("Update Failed, Please check server or internet connection and retry");
+  //   } else {
+  //     if ((data_value[0][i] == 0) || (data_value[0][i] == "0")) {
+  //       setState(() {
+  //         print("im inside the if loop of update value");
+  //         data_value[0][i] = 1;
+  //         _buildButtonsWithNames();
+  //       });
+  //     } else {
+  //       setState(() {
+  //         print("im inside the else case of update values");
+  //         data_value[0][i] = 0;
+  //         _buildButtonsWithNames();
+  //       });
+  //     }
+  //     result = false;
+  //     // If the server did not return a 200 OK response,
+  //     // then throw an exception.
+  //     throw Exception('Failed to load album');
+  //   }
+  //   return response;
+  // }
 
   Future<http.Response> call() async {
     //print("im inside the calll 0----0099898");
@@ -791,119 +792,112 @@ class _TabLeftContainerState extends State<TabLeftContainer>     with WidgetsBin
         : 'Dark';
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Padding(
-        padding: EdgeInsets.symmetric(horizontal: 19.0),
-        child: Container(
-          height: height * 0.965,
-          width: width * 0.70,
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(40.0),
-          ),
-          //child: TabLeftMainContainerTitle(roomName: widget.roomName,ip: widget.ip,index: widget.index,),
-          child: Container(
-              child: Padding(
-                padding: EdgeInsets.all(5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [//widget.roomName.toString().replaceAll("_", " "),
-                                Text("Admin room",
-                                    style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: height*0.030,
-                                      color: Theme.of(context).backgroundColor,)),
-                                Switch(
-                                  value: livingRoomSts,
-                                  onChanged: (bool value){
-                                    setState(() {
-                                      livingRoomSts = value;
-                                    });
-                                  },
+    // return Padding(
+    //     padding: EdgeInsets.symmetric(horizontal: 19.0),
+    //     child: Container(
+    //       height: height * 0.965,
+    //       width: width * 0.70,
+    //       padding: EdgeInsets.all(20.0),
+    //       decoration: BoxDecoration(
+    //         color: Theme.of(context).primaryColor,
+    //         borderRadius: BorderRadius.circular(40.0),
+    //       ),
+    //       //child: TabLeftMainContainerTitle(roomName: widget.roomName,ip: widget.ip,index: widget.index,),
+    //       child: Container(
+    //           child: Padding(
+    //             padding: EdgeInsets.all(5.0),
+    //             child: Column(
+    //               crossAxisAlignment: CrossAxisAlignment.start,
+    //               mainAxisAlignment: MainAxisAlignment.start,
+    //               children: [
+    //                 Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                   children: [
+    //                     Column(
+    //                       crossAxisAlignment: CrossAxisAlignment.start,
+    //                       children: [
+    //                         Row(
+    //                           children: [//widget.roomName.toString().replaceAll("_", " "),
+    //                             Text(widget.roomName.toString().replaceAll("_", " "),
+    //                                 style: GoogleFonts.poppins(
+    //                                   fontWeight: FontWeight.bold,
+    //                                   fontSize: height*0.030,
+    //                                   color: Theme.of(context).backgroundColor,)),
+    //                             // Switch(
+    //                             //   value: livingRoomSts,
+    //                             //   onChanged: (bool value){
+    //                             //     setState(() {
+    //                             //       livingRoomSts = value;
+    //                             //     });
+    //                             //   },
+    //                             //
+    //                             // )
+    //                           ],
+    //                         ),
+    //                         SizedBox(
+    //                           height: height*0.010,
+    //                         ),
+    //                         Text("Lights",
+    //                         style: GoogleFonts.poppins(
+    //                           fontSize: height*0.020,
+    //                         ),
+    //                         ),
+    //                       ],
+    //                     ),
+    //                     Column(
+    //                       children: [
+    //                         ChangeThemeButtonWidget(),
+    //                         SizedBox(
+    //                           height: height*0.010,
+    //                         ),
+    //                         Text("$text Mode",
+    //                             style: GoogleFonts.poppins(
+    //                               fontSize: height*0.010,
+    //                               color: Theme.of(context).backgroundColor,)),
+    //                       ],
+    //                     )
+    //                   ],
+    //                 ),
+    //                 SizedBox(
+    //                   height: height*0.015,
+    //                 ),
+    //                 //TabLeftLightsContainer(),
+    //
+    //                 // Container(
+    //                 //   height: height * 0.20,
+    //                 //   width: width * 1.0,
+    //                 //   child: ListView(
+    //                 //     scrollDirection: Axis.horizontal,
+    //                 //     children: _buildButtonsWithNames(),
+    //                 //   ),
+    //                 // ),
+    //
+    //                 // SizedBox(
+    //                 //   height: height*0.015,
+    //                 // ),
+    //                 // Text("Fans",style:GoogleFonts.poppins( fontSize: height*0.020,),),
+    //                 // SizedBox(
+    //                 //   height: height*0.015,
+    //                 // ),
+    //                 // TabLeftFanContainer(),
+    //                 // SizedBox(
+    //                 //   height: height*0.020,
+    //                 // ),Text("Others Rooms",style: GoogleFonts.poppins( fontSize: height*0.020,
+    //                 //   color:Theme.of(context).backgroundColor,),),
+    //                 // SizedBox(
+    //                 //   height: height*0.021,
+    //                 // ),
+    //                 // TabLeftOtherScrollView()
+    //               ],
+    //             ),
+    //           )),
+    //     ),
+    // );
 
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: height*0.010,
-                            ),
-                            Text("Lights",
-                            style: GoogleFonts.poppins(
-                              fontSize: height*0.020,
-                            ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            // GestureDetector(
-                            //   onTap: (){},
-                            //   child: Container(
-                            //     height: height*0.06,
-                            //     width: width*0.04,
-                            //     decoration: BoxDecoration(
-                            //       color: Color.fromRGBO(196, 196, 196, 1.0),
-                            //       borderRadius: BorderRadius.circular(15.0),
-                            //     ),
-                            //    child: Center(
-                            //      child: SvgPicture.asset("images/icons/sun.svg"),
-                            //    ),
-                            //
-                            //   ),
-                            // ),
-                            ChangeThemeButtonWidget(),
-                            SizedBox(
-                              height: height*0.010,
-                            ),
-                            Text("$text Mode",
-                                style: GoogleFonts.poppins(
-                                  fontSize: height*0.010,
-                                  color: Theme.of(context).backgroundColor,)),
-                          ],
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: height*0.015,
-                    ),
-                    //TabLeftLightsContainer(),
-                    Container(
-                      height: height * 0.20,
-                      width: width * 1.0,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: _buildButtonsWithNames(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: height*0.015,
-                    ),
-                    Text("Fans",style:GoogleFonts.poppins( fontSize: height*0.020,),),
-                    SizedBox(
-                      height: height*0.015,
-                    ),
-                    TabLeftFanContainer(),
-                    SizedBox(
-                      height: height*0.020,
-                    ),Text("Others Rooms",style: GoogleFonts.poppins( fontSize: height*0.020,
-                      color:Theme.of(context).backgroundColor,),),
-                    SizedBox(
-                      height: height*0.021,
-                    ),
-                    TabLeftOtherScrollView()
-                  ],
-                ),
-              )),
-        ),
+    return Container(
+      height: height * 0.965,
+      width: width * 0.70,
+      child: TabLeftMainTiltleContainer(),
     );
   }
 }
