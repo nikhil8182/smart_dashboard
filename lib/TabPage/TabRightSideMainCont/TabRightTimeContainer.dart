@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class TabRightTimeContainer extends StatefulWidget {
 
@@ -10,10 +11,57 @@ class TabRightTimeContainer extends StatefulWidget {
 }
 
 class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
+
+  TimeOfDay _selectedTime;
+
+  Future<Null> _selectTime(BuildContext context) async {
+    final TimeOfDay timePicked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+
+    );
+    if (timePicked != null)
+      setState(() {
+        _selectedTime = timePicked.replacing(hour: timePicked.hourOfPeriod);
+      });
+
+    print(_selectedTime.toString());
+  }
+
+  time(){
+    TimeOfDay noonTime = TimeOfDay(hour: 15, minute: 0); // 3:00 PM
+    TimeOfDay morningTime = TimeOfDay(hour: 5, minute: 0); // 5:00 AM
+
+    print(noonTime.period); // gives DayPeriod.pm
+    print(morningTime.period); // gives DayPeriod.am
+
+    //example 1
+    if (noonTime.period == DayPeriod.am)
+      print("$noonTime is AM");
+    else
+      print("$noonTime is PM");
+
+    //example 2
+    if (morningTime.period == DayPeriod.am)
+      print("$morningTime is AM");
+    else
+      print("$morningTime is PM");
+  }
+@override
+  void initState() {
+
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    DateTime now = DateTime.now();
+    String month = DateFormat('MMM').format(now);
+    String formattedDate = DateFormat('d ').format(now);
+    String timeFormat = DateFormat('kk:mm').format(now);
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 12.0),
       height: height * 0.22,
@@ -36,7 +84,7 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
         children: [
           Row(
             children: [
-              Text("Sep",
+              Text(month,
                   style: GoogleFonts.poppins(color: Colors.white,fontWeight: FontWeight.bold,fontSize: height*0.020)),
               SizedBox(
                 width: width*0.020,
@@ -48,7 +96,7 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
                     color: Colors.transparent,
                     border: Border.all(color: Colors.white)
                 ),
-                child: Text("13",
+                child: Text(formattedDate,
                     style: GoogleFonts.poppins(color: Colors.white,fontWeight: FontWeight.w300, fontSize: height*0.020)
                 ),
               )
@@ -60,7 +108,7 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("11:30 ",
+              Text(timeFormat,
                   style: GoogleFonts.poppins(
                       color: Colors.white,fontWeight: FontWeight.w100, fontSize: height*0.050)),
               SizedBox(

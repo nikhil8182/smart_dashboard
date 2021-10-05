@@ -1789,7 +1789,7 @@ class _TabLeftMainTiltleContainerState extends State<TabLeftMainTiltleContainer>
                       min: 0.0,
                       max: 4.0,
                       divisions: 5,
-                      label:  data_value[0][i].toString().substring(0, 1),
+                      label:  data_value[0][i].toString().substring(0, 4),
                       activeColor: Color.fromRGBO(247, 179, 28, 0.6),
                       inactiveColor: Colors.grey.shade300,
                       value: double.parse(data_value[0][i]),
@@ -2543,6 +2543,7 @@ class _TabLeftMainTiltleContainerState extends State<TabLeftMainTiltleContainer>
   List pg = [];
   String button_name;
   String local_ip;
+  bool eBill = false;
 
   Future get_name() async {
     //final response = await http.get('http://34.83.46.202.xip.io/cyberhome/home.php?username=${widget.email}&query=table');
@@ -2555,9 +2556,12 @@ class _TabLeftMainTiltleContainerState extends State<TabLeftMainTiltleContainer>
 
     final response = await http.get(Uri.http("$ip", "/key"));
     var fetchdata = jsonDecode(response.body);
+
+
     if (response.statusCode == 200) {
       setState(() {
         data = fetchdata;
+
       });
 
       for (int i = 0; i < data.length; i++) {
