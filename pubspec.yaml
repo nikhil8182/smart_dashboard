@@ -39,6 +39,10 @@ dependencies:
   shared_preferences:
   overlay_support:
   http:
+  geolocator:
+  geocoding:
+  weather: ^2.0.1
+  location: ^4.3.0
 
 dev_dependencies:
   flutter_test:

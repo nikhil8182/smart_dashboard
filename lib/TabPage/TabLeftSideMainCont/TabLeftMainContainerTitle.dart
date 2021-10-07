@@ -2081,8 +2081,16 @@ class _TabLeftMainTiltleContainerState extends State<TabLeftMainTiltleContainer>
                       //       .size
                       //       .height * 0.006,
                       // ),
+                      (data_value[0][i] == 0) || (data_value[0][i] == "0")?
                       Text(
                         "off",
+                        style: GoogleFonts.poppins(
+                            fontSize: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.015),
+                      ):Text(
+                        "On",
                         style: GoogleFonts.poppins(
                             fontSize: MediaQuery
                                 .of(context)
@@ -2238,15 +2246,22 @@ class _TabLeftMainTiltleContainerState extends State<TabLeftMainTiltleContainer>
                         //       .size
                         //       .height * 0.006,
                         // ),
+                        (data_value[0][i] == 0) || (data_value[0][i] == "0")?
                         Text(
                           "off",
                           style: GoogleFonts.poppins(
-                              fontSize:
-                              MediaQuery
+                              fontSize: MediaQuery
                                   .of(context)
                                   .size
                                   .height * 0.015),
-                        ),
+                        ):Text(
+                          "On",
+                          style: GoogleFonts.poppins(
+                              fontSize: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * 0.015),
+                        )
                       ],
                     )))));
       }
@@ -2392,11 +2407,18 @@ class _TabLeftMainTiltleContainerState extends State<TabLeftMainTiltleContainer>
                         //       .size
                         //       .height * 0.006,
                         // ),
+                        (data_value[0][i] == 0) || (data_value[0][i] == "0")?
                         Text(
                           "off",
                           style: GoogleFonts.poppins(
-                              fontSize:
-                              MediaQuery
+                              fontSize: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * 0.015),
+                        ):Text(
+                          "On",
+                          style: GoogleFonts.poppins(
+                              fontSize: MediaQuery
                                   .of(context)
                                   .size
                                   .height * 0.015),
