@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http ;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +8,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftCont.dart';
-import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftMainContainerTitle.dart';
-import 'package:smart_dashboard/theme/change_theme_button_widget.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
 
 class TabRightRoomsContainer extends StatefulWidget {
@@ -50,6 +46,7 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
   Timer timer;
   bool hasInternet = false;
   ConnectivityResult result = ConnectivityResult.none;
+  String  isSelected = " ";
 
 
   void initial() async {
@@ -63,60 +60,65 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
   String userName = " ";
   String ipAddress = "192.168.1.18:8000";
 
-  Future <String> getData() {
-    //
-    // databaseReference.child(auth.currentUser.uid).once().then((DataSnapshot snapshot) async {
-    //
-    //   // print('Data : ${snapshot.value}');
-    //   // print("iam going to map ");
-    //
-    //   // print("dataJson = $dataJson");
-    //   // print(dataJson["name"]);
-    //   // userName = dataJson["name"];
-    //   // ipAddress= dataJson["ip"];
-    //
-    //   setState(() {
-    //     dataJson = snapshot.value;
-    //     //print(dataJson);
-    //     userName = dataJson["name"];
-    //     ipAddress= dataJson["ip"].toString();
-    //
-    //     // ip_local = loginData.setString('ip', ipAddress) as String ;
-    //     //print("$ipAddress --------");
-    //   });
+  getData() {
 
     if (result == ConnectivityResult.wifi) {
-      //print("wifi =============_________(((((((((()))))))");
-      get_name();
+
+      getName();
     }
     else if ((result == ConnectivityResult.mobile) && (!mobNotifier)) {
-      //print("mobile ****************************");
-      // if((!mobNotifier) && (ipAddress.toString().toLowerCase() == 'false')) {
-      //   get_name();
-      // }
-      // else{
-      //   showSimpleNotification(
-      //     Text(" please switch on your wifi network ",
-      //       style: TextStyle(color: Colors.white),), background: Colors.red,
-      //   );
-      // }
       if (!mobNotifier) {
-        // print(" im inside the if notifier class");
         showSimpleNotification(
           Text(" Please switch to wifi network ",
             style: TextStyle(color: Colors.white),), background: Colors.red,
+        );
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 0,
+            title: Text(" Warning "),
+            content: Text(" Please switch to wifi network "),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text("okay"),
+              ),
+            ],
+          ),
         );
       }
       mobNotifier = true;
     }
     else if ((result == ConnectivityResult.none) && (!notifier)) {
-      // print(" ************** none **************");
-      // print("$notifier the value of the notifier is 00000000");
+
       if (!notifier) {
-        // print(" im inside the if notifier class");
         showSimpleNotification(
           Text(" No Internet Connectivity ",
             style: TextStyle(color: Colors.white),), background: Colors.red,
+        );
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 0,
+            title: Text(" No Internet Connectivity"),
+            content: Text(" Please Connect to WiFi Network. "),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text("okay"),
+              ),
+            ],
+          ),
         );
       }
       notifier = true;
@@ -124,10 +126,8 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
   }
 
 
-  Future get_name() async {
-    //print("iam inside getname");
-    //print(ipAddress);
-    //print("iam using online json");
+  Future getName() async {
+
     final response = await http.get(Uri.parse("http://$ipAddress/key",));
 
     var fetchData = jsonDecode(response.body);
@@ -241,10 +241,10 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
     });
     super.initState();
 
-    //print("url type: ${widget.check_url}");
+
   }
 
-  String  isSelected = " ";
+
 
   @override
   Widget build(BuildContext context) {

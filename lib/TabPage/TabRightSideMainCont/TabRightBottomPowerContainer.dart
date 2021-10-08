@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -34,9 +33,7 @@ class _TabRightBottomPowerContainerState extends State<TabRightBottomPowerContai
     deviceStatus = jsonDecode(res.body);
     setState(() {
       count = 0;
-      //print("${deviceStatus[0].length} ============");
       for(int i = 0 ; i < deviceStatus[0].length ; i++){
-        // print("${deviceStatus[0][i]}");
         if((deviceStatus[0][i] == "1")||(deviceStatus[0][i] == 1)){
           count++;
         }

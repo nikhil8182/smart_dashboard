@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftCont.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightContainer.dart';
-import 'package:smart_dashboard/theme/theme_provider.dart';
 
 class TabPage extends StatefulWidget {
 

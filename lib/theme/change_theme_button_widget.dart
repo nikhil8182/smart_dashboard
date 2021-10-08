@@ -15,27 +15,15 @@ class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
-    // return Switch.adaptive(
-    //   value: themeProvider.isDarkMode,
-    //   onChanged: (value) {
-    //     final provider = Provider.of<ThemeProvider>(context, listen: false);
-    //     provider.toggleTheme(value);
-    //   },
-    // );
 
     return GestureDetector(
       onTap: (){
            setState(() {
-             print("******* $themeSts *******");
              if(themeSts == false){
                themeSts = true;
-               print("******* $themeSts inside the if loop *******");
              }
              else{
                themeSts = false;
-               print("******* $themeSts inside the else loop *******");
              }
              final provider = Provider.of<ThemeProvider>(context, listen: false);
              provider.toggleTheme(themeSts);
@@ -46,14 +34,12 @@ class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
         width: width*0.04,
         decoration: BoxDecoration(
           color: Color.fromRGBO(196, 196, 196, 1.0),
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Center(
-          child: themeSts ? SvgPicture.asset("images/icons/sun.svg"): SvgPicture.asset("images/icons/moon.svg"),
+          child: themeSts ? SvgPicture.asset("images/icons/sun.svg",height: height*0.050,): SvgPicture.asset("images/icons/moon.svg",height: height*0.050,),
         ),
-
       ),
     );
-
   }
 }

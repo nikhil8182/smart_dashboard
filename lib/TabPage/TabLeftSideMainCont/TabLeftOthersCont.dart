@@ -62,43 +62,14 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
   String userName = " ";
   String ipAddress = "192.168.1.18:8000";
 
-  Future <String> getData(){
-    //
-    // databaseReference.child(auth.currentUser.uid).once().then((DataSnapshot snapshot) async {
-    //
-    //   // print('Data : ${snapshot.value}');
-    //   // print("iam going to map ");
-    //
-    //   // print("dataJson = $dataJson");
-    //   // print(dataJson["name"]);
-    //   // userName = dataJson["name"];
-    //   // ipAddress= dataJson["ip"];
-    //
-    //   setState(() {
-    //     dataJson = snapshot.value;
-    //     //print(dataJson);
-    //     userName = dataJson["name"];
-    //     ipAddress= dataJson["ip"].toString();
-    //
-    //     // ip_local = loginData.setString('ip', ipAddress) as String ;
-    //     //print("$ipAddress --------");
-    //   });
+   getData(){
 
     if(result == ConnectivityResult.wifi) {
       //print("wifi =============_________(((((((((()))))))");
-      get_name();
+      getName();
     }
     else if((result == ConnectivityResult.mobile)&&(!mobNotifier)){
-      //print("mobile ****************************");
-      // if((!mobNotifier) && (ipAddress.toString().toLowerCase() == 'false')) {
-      //   get_name();
-      // }
-      // else{
-      //   showSimpleNotification(
-      //     Text(" please switch on your wifi network ",
-      //       style: TextStyle(color: Colors.white),), background: Colors.red,
-      //   );
-      // }
+
       if(! mobNotifier){
         // print(" im inside the if notifier class");
         showSimpleNotification(
@@ -110,8 +81,6 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
     }
     else if((result == ConnectivityResult.none)&&(!notifier))
     {
-      // print(" ************** none **************");
-      // print("$notifier the value of the notifier is 00000000");
       if(!notifier){
         // print(" im inside the if notifier class");
         showSimpleNotification(
@@ -126,15 +95,12 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
 
 
 
-  Future get_name() async {
-    //print("iam inside getname");
-    //print(ipAddress);
-    //print("iam using online json");
+  Future getName() async {
+
     final response = await http.get(Uri.parse("http://$ipAddress/key",));
 
     var fetchData = jsonDecode(response.body);
     if (response.statusCode == 200) {
-      // data = fetchData;
 
       setState(() {
         data = fetchData;

@@ -33,9 +33,6 @@ class _TabRightContainerState extends State<TabRightContainer> {
           Text("ROOMS",
             style: GoogleFonts.poppins(color: Color.fromRGBO(46, 56, 48, 1.0),fontSize: height*0.030,fontWeight: FontWeight.bold),
           ),
-          // SizedBox(
-          //   height: height*0.010,
-          // ),
           Text("All",
             style: GoogleFonts.poppins(fontSize: height*0.020,fontWeight: FontWeight.bold),
           ),

@@ -54,8 +54,6 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
 
 
   void _getTime() {
-    getLoc();
-    ws = new WeatherFactory(key);
     setState(() {
       DateTime now = DateTime.now();
        month = DateFormat('MMM').format(now);
@@ -68,15 +66,18 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
 
   @override
   void initState() {
+    getLoc();
+    ws = new WeatherFactory(key);
     Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
-    super.initState();
+    Timer.periodic(Duration(minutes: 10), (Timer t) => getLoc());
+        super.initState();
   }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 12.0),
+      padding: EdgeInsets.symmetric(horizontal: 12.0,vertical: 10.0),
       height: height * 0.22,
       width: width * 0.23,
       decoration: BoxDecoration(

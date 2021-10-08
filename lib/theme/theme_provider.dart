@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftMainContainerTitle.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode themeMode = ThemeMode.system;
@@ -52,7 +51,7 @@ class MyThemes {
   static final lightTheme = ThemeData(
     backgroundColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
-    primaryColor: Colors.blueGrey.shade50.withOpacity(1.0),
+    primaryColor: Colors.grey.shade100,
     // colorScheme: ColorScheme.light(),
     textTheme:TextTheme(bodyText2: TextStyle(color: Color.fromRGBO(
         219, 214, 214, 1.0))),//163, 163, 163, 1.0
