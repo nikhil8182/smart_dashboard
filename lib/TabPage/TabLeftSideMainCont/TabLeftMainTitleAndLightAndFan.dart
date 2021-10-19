@@ -1,15 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftOtherScrollView.dart';
 import 'package:smart_dashboard/theme/change_theme_button_widget.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+
+FirebaseAuth auth = FirebaseAuth.instance;
+final databaseReference = FirebaseDatabase.instance.reference();
+
 
 
 class TabLeftMainTitleContainer extends StatefulWidget {
@@ -36,6 +44,15 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
   String buttonName;
   String localIp;
   bool eBill = false;
+  var dataJson;
+  //String ip_Local;
+  SharedPreferences loginData;
+  String ip;
+  String username;
+  bool notifier = false;
+  bool mobNotifier = false;
+  String userName= " ";
+  String ipAddress = " ";
 
   List<Widget> _buildButtonsWithNames() {
     //print(" im inside the buildbutton--------------===========");
@@ -587,12 +604,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                               .height * 0.010,
                         ),
                         (dataValue[0][i] == 1) || (dataValue[0][i] == "1")
-                            ? Text(
-                          data[i]
-                              .toString()
-                              .split("Switch")[0]
-                              .replaceAll("_", " ") +
-                              "",
+                ? Text(data[i].toString().split("Switch")[0].replaceAll("_", " ") + "",
                           style: GoogleFonts.poppins(
                               color:(dataValue[0][i] == 0) ||
                                   (dataValue[0][i] == "0") ?Theme
@@ -604,7 +616,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                               MediaQuery
                                   .of(context)
                                   .size
-                                  .height * 0.018),
+                                  .height * 0.016),
                         ) : Text(
                           data[i]
                               .toString()
@@ -621,7 +633,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                             MediaQuery
                                 .of(context)
                                 .size
-                                .height * 0.018),
+                                .height * 0.016),
                         ),
                         (dataValue[0][i] == 0) || (dataValue[0][i] == "0")?
                         Text(
@@ -645,19 +657,65 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
     }
   }
 
-  SharedPreferences loginData;
-  String ip = "192.168.1.18:8000";
+  getData(){
 
-  // void initial() async {
-  //   local_ip = widget.local_ip;
-  //   //print("im inside the initial function $local_ip");
-  //   loginData = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     loginData.setString('ip', local_ip);
-  //     ip = loginData.getString('ip');
-  //     //print("im inside the setstate of initial $ip");
-  //   });
-  // }
+    databaseReference.child(auth.currentUser.uid).once().then((DataSnapshot snapshot) async {
+
+      setState(() {
+        dataJson = snapshot.value;
+        //print(dataJson);
+        userName = dataJson["name"];
+        ipAddress= dataJson["ip"].toString();
+      });
+      loginData = await SharedPreferences.getInstance();
+      loginData.setString('username',userName);
+      loginData.setString('ip', ipAddress);
+
+      setState(() {
+        username = loginData.getString('username');
+        ip = loginData.getString('ip');
+      });
+
+
+      if(result == ConnectivityResult.wifi) {
+        //print("wifi =============_________(((((((((()))))))");
+        getName();
+      }
+      else if((result == ConnectivityResult.mobile)&&(!mobNotifier)){
+        //print("mobile ****************************");
+        if((!mobNotifier) && (ipAddress.toString().toLowerCase() == 'false')){
+          showSimpleNotification(
+            Text(" your are on Mobile Data  ",
+              style: TextStyle(color: Colors.white),), background: Colors.green,
+          );
+        }
+        else{
+          showSimpleNotification(
+            Text(" please switch on your wifi network ",
+              style: TextStyle(color: Colors.white),), background: Colors.red,
+          );
+
+        }
+        mobNotifier = true;
+      }
+      else if((result == ConnectivityResult.none)&&(!notifier))
+      {
+        // print(" ************** none **************");
+        // print("$notifier the value of the notifier is 00000000");
+        if(!notifier){
+          // print(" im inside the if notifier class");
+          showSimpleNotification(
+            Text(" No Internet Connectivity ",
+              style: TextStyle(color: Colors.white),), background: Colors.red,
+          );
+        }
+        notifier = true;
+      }
+
+    });
+  }
+
+
 
   Future<http.Response> updateValue(button, buttonValue, i) async {
     final response = await http.get(Uri.http("$ip", "/$button/$buttonValue"));
@@ -865,7 +923,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
   @override
   void initState() {
     // initial();
-    getName();
+    getData();
     // print("mood check ${widget.isDark}");
     check().then((internet) {
       if (internet) {
@@ -985,11 +1043,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
 
   @override
   Widget build(BuildContext context) {
-    final text = Provider
-        .of<ThemeProvider>(context)
-        .themeMode == ThemeMode.dark
-        ? 'Light'
-        : 'Dark';
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark ? 'Light' : 'Dark' ;
     final height = MediaQuery
         .of(context)
         .size

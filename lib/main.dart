@@ -1,12 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_dashboard/TabPage/TabPage.dart';
+import 'package:smart_dashboard/loginPage.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+
 
   // await SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
         themeMode: themeProvider.themeMode,
         theme: MyThemes.lightTheme,
         darkTheme: MyThemes.darkTheme,
-        home: TabPage(),
+        home: LoginPage(),
         debugShowCheckedModeBanner: false,
       ),
       );

@@ -1,8 +1,18 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftCont.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightContainer.dart';
+
+import '../loginPage.dart';
+
+
+
+FirebaseAuth auth = FirebaseAuth.instance;
+final databaseReference = FirebaseDatabase.instance.reference();
 
 class TabPage extends StatefulWidget {
 
@@ -11,6 +21,10 @@ class TabPage extends StatefulWidget {
 }
 
 class _TabPageState extends State<TabPage> {
+
+  SharedPreferences loginData;
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -34,7 +48,14 @@ class _TabPageState extends State<TabPage> {
             children: [
               SizedBox(
                   height: height*0.25,
-                  child: SvgPicture.asset("images/icons/onwords.svg")),
+                  child: GestureDetector(
+                      onDoubleTap: () async {
+                        loginData = await SharedPreferences.getInstance();
+                        loginData.setBool('login', true);
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => LoginPage()));
+                      },
+                      child: SvgPicture.asset("images/icons/onwords.svg"))),
              TabLeftContainer(),
               TabRightContainer()
             ],

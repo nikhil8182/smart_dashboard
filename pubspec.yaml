@@ -39,10 +39,12 @@ dependencies:
   shared_preferences:
   overlay_support:
   http:
-  geolocator:
-  geocoding:
   weather: ^2.0.1
   location: ^4.3.0
+  firebase_auth_oauth:
+  firebase_core:
+  firebase_database:
+  cloud_firestore:
 
 dev_dependencies:
   flutter_test:

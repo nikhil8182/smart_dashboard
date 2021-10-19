@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "867325064971",
+    "firebase_url": "https://smart-home-c08c4-default-rtdb.firebaseio.com",
+    "project_id": "smart-home-c08c4",
+    "storage_bucket": "smart-home-c08c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867325064971:android:12ad3683361981b743540e",
+        "android_client_info": {
+          "package_name": "com.onwords.smart_dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867325064971-bdt360vnkcs79utovqa5iirqg8j1qh9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0H6cYHCkJ2ZFV6ykM77BMqgNDPKXEjQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867325064971-bdt360vnkcs79utovqa5iirqg8j1qh9i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "867325064971-fe7s454g2jiailhh3g24ootjqk3e4b5j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.onwords.smartapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:867325064971:android:2dce72fa070ff67743540e",
+        "android_client_info": {
+          "package_name": "com.onwords.smartapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "867325064971-bdt360vnkcs79utovqa5iirqg8j1qh9i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0H6cYHCkJ2ZFV6ykM77BMqgNDPKXEjQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "867325064971-bdt360vnkcs79utovqa5iirqg8j1qh9i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "867325064971-fe7s454g2jiailhh3g24ootjqk3e4b5j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.onwords.smartapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

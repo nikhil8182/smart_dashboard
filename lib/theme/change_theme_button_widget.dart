@@ -10,7 +10,7 @@ class ChangeThemeButtonWidget extends StatefulWidget {
 }
 
 class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
-  bool themeSts = false;
+  bool themeSts = false ;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -19,11 +19,16 @@ class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
     return GestureDetector(
       onTap: (){
            setState(() {
+
              if(themeSts == false){
+              print("im inside the if cond");
                themeSts = true;
+               print("themests $themeSts");
              }
              else{
+               print("im inside the else cond");
                themeSts = false;
+               print("themests $themeSts");
              }
              final provider = Provider.of<ThemeProvider>(context, listen: false);
              provider.toggleTheme(themeSts);
@@ -37,7 +42,9 @@ class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Center(
-          child: themeSts ? SvgPicture.asset("images/icons/sun.svg",height: height*0.050,): SvgPicture.asset("images/icons/moon.svg",height: height*0.050,),
+          child: Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark ?
+          SvgPicture.asset("images/icons/sun.svg",height: height*0.035,):
+          SvgPicture.asset("images/icons/moon.svg",height: height*0.030,),
         ),
       ),
     );
