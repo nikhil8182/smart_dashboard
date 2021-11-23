@@ -287,7 +287,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                         decoration: BoxDecoration(
                             color: (dataValue[0][i] == 0) ||
                                 (dataValue[0][i] == "0") ? Color.fromRGBO(247, 179, 28, 0.19) :
-                            Theme.of(context).scaffoldBackgroundColor ,
+                            Theme.of(context).canvasColor ,
                             borderRadius: BorderRadius.circular(15.0)),
                         child: Center(
                           child: SvgPicture.asset(
@@ -311,27 +311,15 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                             "_", " ") + "",
                         style: GoogleFonts.poppins(
                             color: (dataValue[0][i] == 0) ||
-                                (dataValue[0][i] == "0") ?Theme
-                                .of(context)
-                                .backgroundColor : Theme
-                                .of(context)
-                                .scaffoldBackgroundColor,
-                            fontSize:
-                            MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.018),
+                                (dataValue[0][i] == "0") ? Theme.of(context).backgroundColor : Theme.of(context).cardColor,
+                            fontSize: MediaQuery.of(context).size.height * 0.018),
                       )
                           : Text(
                         data[i].toString().split("Button")[0].replaceAll(
                             "_", " ") + "",
                         style: GoogleFonts.poppins(
                             color: (dataValue[0][i] == 0) ||
-                                (dataValue[0][i] == "0") ?Theme
-                                .of(context)
-                                .backgroundColor : Theme
-                                .of(context)
-                                .scaffoldBackgroundColor,
+                                (dataValue[0][i] == "0") ? Theme.of(context).backgroundColor : Theme.of(context).cardColor,
                             fontSize:
                             MediaQuery
                                 .of(context)
@@ -342,6 +330,12 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                       Text(
                         "off",
                         style: GoogleFonts.poppins(
+                          color: (dataValue[0][i] == 0) ||
+                              (dataValue[0][i] == "0") ?Theme
+                              .of(context)
+                              .backgroundColor : Theme
+                              .of(context)
+                              .cardColor,
                             fontSize: MediaQuery
                                 .of(context)
                                 .size
@@ -349,6 +343,12 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                       ):Text(
                         "On",
                         style: GoogleFonts.poppins(
+                            color: (dataValue[0][i] == 0) ||
+                                (dataValue[0][i] == "0") ?Theme
+                                .of(context)
+                                .backgroundColor : Theme
+                                .of(context)
+                                .cardColor,
                             fontSize: MediaQuery
                                 .of(context)
                                 .size
@@ -437,7 +437,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                           decoration: BoxDecoration(
                               color: (dataValue[0][i] == 0) ||
                                   (dataValue[0][i] == "0") ? Color.fromRGBO(247, 179, 28, 0.19) :
-                              Theme.of(context).scaffoldBackgroundColor ,
+                              Theme.of(context).canvasColor ,
                               borderRadius: BorderRadius.circular(15.0)),
                           child: Center(
                             child: SvgPicture.asset(
@@ -468,7 +468,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                                   .of(context)
                                   .backgroundColor : Theme
                                   .of(context)
-                                  .scaffoldBackgroundColor,
+                                  .cardColor,
                               fontSize:
                               MediaQuery
                                   .of(context)
@@ -485,7 +485,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                                 .of(context)
                                 .backgroundColor : Theme
                                 .of(context)
-                                .scaffoldBackgroundColor,
+                                .cardColor,
                             fontSize:
                             MediaQuery
                                 .of(context)
@@ -497,6 +497,12 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                         Text(
                           "off",
                           style: GoogleFonts.poppins(
+                            color: (dataValue[0][i] == 0) ||
+                                (dataValue[0][i] == "0") ?Theme
+                                .of(context)
+                                .backgroundColor : Theme
+                                .of(context)
+                                .cardColor,
                               fontSize: MediaQuery
                                   .of(context)
                                   .size
@@ -504,6 +510,12 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                         ):Text(
                           "On",
                           style: GoogleFonts.poppins(
+                              color: (dataValue[0][i] == 0) ||
+                                  (dataValue[0][i] == "0") ?Theme
+                                  .of(context)
+                                  .backgroundColor : Theme
+                                  .of(context)
+                                  .cardColor,
                               fontSize: MediaQuery
                                   .of(context)
                                   .size
@@ -592,7 +604,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                           decoration: BoxDecoration(
                               color: (dataValue[0][i] == 0) ||
                                   (dataValue[0][i] == "0") ? Color.fromRGBO(247, 179, 28, 0.19) :
-                              Theme.of(context).scaffoldBackgroundColor ,
+                              Theme.of(context).canvasColor ,
                               borderRadius: BorderRadius.circular(15.0)),
                           child: Center(
                             child: SvgPicture.asset(
@@ -615,7 +627,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                                   .of(context)
                                   .backgroundColor : Theme
                                   .of(context)
-                                  .scaffoldBackgroundColor,
+                                  .cardColor,
                               fontSize:
                               MediaQuery
                                   .of(context)
@@ -632,7 +644,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                                 .of(context)
                                 .backgroundColor : Theme
                                 .of(context)
-                                .scaffoldBackgroundColor,
+                                .cardColor,
                             fontSize:
                             MediaQuery
                                 .of(context)
@@ -643,6 +655,10 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                         Text(
                           "off",
                           style: GoogleFonts.poppins(
+                            color: (dataValue[0][i] == 0) ||
+                                (dataValue[0][i] == "0") ?Theme.of(context).backgroundColor : Theme
+                                .of(context)
+                                .cardColor,
                               fontSize: MediaQuery
                                   .of(context)
                                   .size
@@ -650,6 +666,10 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
                         ):Text(
                           "On",
                           style: GoogleFonts.poppins(
+                              color: (dataValue[0][i] == 0) ||
+                                  (dataValue[0][i] == "0") ?Theme.of(context)
+                                  .backgroundColor : Theme.of(context)
+                                  .cardColor,
                               fontSize: MediaQuery
                                   .of(context)
                                   .size
@@ -1191,7 +1211,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer> w
 
   @override
   Widget build(BuildContext context) {
-    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark ? 'Light' : 'Dark' ;
+    final text = Provider.of<ThemeProvider>(context).getTheme() == ThemeMode.dark ? 'Dark' : 'Light' ;
     final height = MediaQuery
         .of(context)
         .size

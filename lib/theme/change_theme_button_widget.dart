@@ -42,9 +42,11 @@ class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Center(
-          child: Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark ?
-          SvgPicture.asset("images/icons/sun.svg",height: height*0.035,):
-          SvgPicture.asset("images/icons/moon.svg",height: height*0.030,),
+          //toggle has to work by mobile****************
+
+          child: Provider.of<ThemeProvider>(context).getTheme() == ThemeMode.dark ?
+          SvgPicture.asset("images/icons/moon.svg",height: height*0.035,):
+          SvgPicture.asset("images/icons/sun.svg",height: height*0.030,),
         ),
       ),
     );
