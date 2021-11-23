@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TabRightBottomPowerContainer extends StatefulWidget {
 
@@ -13,44 +14,101 @@ class TabRightBottomPowerContainer extends StatefulWidget {
 class _TabRightBottomPowerContainerState extends State<TabRightBottomPowerContainer> {
   bool eBill = false;
   var data;
-  String ip = "192.168.1.18:8000";
+  String ip ;
   int count = 0;
   List deviceStatus=[];
   Timer timer;
+  SharedPreferences loginData ;
 
-  Future<dynamic> getData() async {
-    http.Response response =
-    await http.get(Uri.parse('http://$ip/'));
-    data = json.decode(response.body);
+  //
+  // Future<dynamic> getData() async {
+  //   http.Response response =
+  //   await http.get(Uri.parse('http://$ip/'));
+  //   data = json.decode(response.body);
+  //   setState(() {
+  //     eBill = data['Eb_Status_About'];
+  //   });
+  // }
+  //
+  // getDevice() async {
+  //   getData();
+  //   final res = await http.get(Uri.parse("http://$ip/value",));
+  //   deviceStatus = jsonDecode(res.body);
+  //   setState(() {
+  //     count = 0;
+  //     for(int i = 0 ; i < deviceStatus[0].length ; i++){
+  //       if((deviceStatus[0][i] == "1")||(deviceStatus[0][i] == 1)){
+  //         count++;
+  //       }
+  //     }
+  //   });
+  //
+  // }
+  //
+  // @override
+  // void initState() {
+  //   timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+  //     getDevice();
+  //   });
+  //   getDevice();
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
+  initial() async {
+    loginData = await SharedPreferences.getInstance();
     setState(() {
-      eBill = data['Eb_Status_About'];
+      ip = loginData.getString('ip');
     });
   }
 
   getDevice() async {
-    getData();
-    final res = await http.get(Uri.parse("http://$ip/value",));
-    deviceStatus = jsonDecode(res.body);
-    setState(() {
-      count = 0;
-      for(int i = 0 ; i < deviceStatus[0].length ; i++){
-        if((deviceStatus[0][i] == "1")||(deviceStatus[0][i] == 1)){
-          count++;
+    if((ip != 'false') && (ip != null)){
+      final res = await http.get(Uri.parse("http://$ip/value",));
+      deviceStatus = jsonDecode(res.body);
+
+      http.Response response = await http.get(Uri.parse('http://$ip/'));
+      data = json.decode(response.body);
+      setState(() {
+        eBill = data['Eb_Status_About'];
+
+        // batteryLevel = data['UPS_Battery_Percentage_About'];
+        // waterLevel = data['level'];
+        // voltage = data['Onwords_Office_Voltage_Consuption_About'];
+        // amps = data['Onwords_Office_Amp_Consuption_About'];
+        // unit = data['Onwords_Office_Unit_Consuption_About'];
+        // bill = data['Onwords_Office_Current_Bill_About'];
+
+        // print("ebill $eBill ");
+        // print("batteryLevel  $batteryLevel");
+        // print("$waterLevel water level ");
+        // print("vol is $voltage");
+        // print("amps is $amps");
+        // print("unit is $unit");
+        count = 0;
+        for(int i = 0 ; i < deviceStatus[0].length ; i++){
+          if((deviceStatus[0][i] == "1")||(deviceStatus[0][i] == 1)){
+            count++;
+          }
         }
-      }
-    });
+        //print("count is $count");
+      });
+    }else{
+      print("the second page has online service still ");
+    }
 
   }
 
   @override
   void initState() {
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getDevice();
-    });
-    getDevice();
-    // TODO: implement initState
+    initial();
+    Timer.periodic(Duration(seconds: 1), (Timer t) => getDevice());
     super.initState();
+    // Future.delayed(Duration.zero, () {
+    //   this.showAlertDialog(context);
+    // });
   }
+
 
   @override
   Widget build(BuildContext context) {

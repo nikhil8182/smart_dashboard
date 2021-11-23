@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -9,6 +10,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+
+final databaseReference = FirebaseDatabase.instance.reference();
+
 
 class TabLeftOthersContainer extends StatefulWidget {
 
@@ -34,7 +41,6 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
   bool parkingStatus = false;
   bool livingStatus = false;
   bool outSideStatus = false;
-
   String ipLocal;
   SharedPreferences loginData;
   String ip;
@@ -49,62 +55,300 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
   Timer timer;
   bool hasInternet = false;
   ConnectivityResult result = ConnectivityResult.none;
+  String ipAddress = " ";
+  List<String> localDataVal = [];
+  var count = 0;
+  String userName = " ";
+  var acount = 0;
 
 
-  void initial() async {
+  //
+  // void initial() async {
+  //   loginData = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     username = loginData.getString('username');
+  //   });
+  // }
+  //
+  //
+  // String userName = " ";
+  // String ipAddress = "192.168.1.18:8000";
+  //
+  //  getData(){
+  //
+  //   if(result == ConnectivityResult.wifi) {
+  //     //print("wifi =============_________(((((((((()))))))");
+  //     getName();
+  //   }
+  //   else if((result == ConnectivityResult.mobile)&&(!mobNotifier)){
+  //
+  //     if(! mobNotifier){
+  //       // print(" im inside the if notifier class");
+  //       showSimpleNotification(
+  //         Text(" Please switch to wifi network ",
+  //           style: TextStyle(color: Colors.white),), background: Colors.red,
+  //       );
+  //     }
+  //     mobNotifier = true;
+  //   }
+  //   else if((result == ConnectivityResult.none)&&(!notifier))
+  //   {
+  //     if(!notifier){
+  //       // print(" im inside the if notifier class");
+  //       // showSimpleNotification(
+  //       //   Text(" No Internet Connectivity ",
+  //       //     style: TextStyle(color: Colors.white),), background: Colors.red,
+  //       // );
+  //     }
+  //     notifier = true;
+  //   }
+  //
+  // }
+  //
+  //
+  //
+  // Future getName() async {
+  //
+  //   final response = await http.get(Uri.parse("http://$ipAddress/key",));
+  //
+  //   var fetchData = jsonDecode(response.body);
+  //   if (response.statusCode == 200) {
+  //
+  //     setState(() {
+  //       data = fetchData;
+  //     });}
+  //
+  //   for (int i = 0; i < data.length; i++) {
+  //     if (data[i].toString().contains("_Admin_Room") &&
+  //         (!name.contains(data[i].toString().contains("Admin_Room")))) {
+  //       name.add("Admin_Room");
+  //       pg.add("Admin_Room");
+  //     } else if (data[i].toString().contains("_Hall") &&
+  //         (!name.contains(data[i].toString().contains("Hall")))) {
+  //       name.add("Hall");
+  //       pg.add("Hall");
+  //     } else if (data[i].toString().contains("Living_Room") &&
+  //         (!name.contains(data[i].toString().contains("Living_Room")))) {
+  //       name.add("Living_Room");
+  //       pg.add("Living_Room");
+  //     } else if (data[i].toString().contains("_Garage") &&
+  //         (!name.contains(data[i].toString().contains("Garage")))) {
+  //       name.add("Garage");
+  //       pg.add("Garage");
+  //     } else if (data[i].toString().contains("_Kitchen") &&
+  //         (!name.contains(data[i].toString().contains("Kitchen")))) {
+  //       name.add("Kitchen");
+  //       pg.add("Kitchen");
+  //     } else if (data[i].toString().contains("_Bathroom") &&
+  //         (!name.contains(data[i].toString().contains("Bathroom")))) {
+  //       name.add("Bathroom");
+  //       pg.add("Bathroom");
+  //     } else if (data[i].toString().contains("Master_Bedroom") &&
+  //         (!name.contains(data[i].toString().contains("Master_Bedroom")))) {
+  //       name.add("Master_Bedroom");
+  //       pg.add("Master_Bedroom");
+  //     } else if (data[i].toString().contains("_Bedroom") &&
+  //         (!name.contains(data[i].toString().contains("Bedroom")))) {
+  //       name.add("Bedroom");
+  //       pg.add("Bedroom");
+  //     } else if (data[i].toString().contains("_Bedroom1") &&
+  //         (!name.contains(data[i].toString().contains("Bedroom1")))) {
+  //       name.add("Bedroom1");
+  //       pg.add("Bedroom1");
+  //     } else if (data[i].toString().contains("_Bedroom2") &&
+  //         (!name.contains(data[i].toString().contains("Bedroom2")))) {
+  //       name.add("Bedroom2");
+  //       pg.add("Bedroom2");
+  //     } else if (data[i].toString().contains("_Store_Room") &&
+  //         (!name.contains(data[i].toString().contains("Store_Room")))) {
+  //       name.add("Store_Room");
+  //       pg.add("Store_Room");
+  //     } else if (data[i].toString().contains("_Outside") &&
+  //         (!name.contains(data[i].toString().contains("Outside")))) {
+  //       name.add("Outside");
+  //       pg.add("Outside");
+  //     } else if (data[i].toString().contains("_Parking") &&
+  //         (!name.contains(data[i].toString().contains("Parking")))) {
+  //       name.add("Parking");
+  //       pg.add("Parking");
+  //     } else if (data[i].toString().contains("_Outside") &&
+  //         (!name.contains(data[i].toString().contains("Outside")))) {
+  //       name.add("Outside");
+  //       pg.add("Outside");
+  //     } else if (data[i].toString().contains("_Garden") &&
+  //         (!name.contains(data[i].toString().contains("Garden")))) {
+  //       name.add("Garden");
+  //       pg.add("Garden");
+  //     }
+  //   }
+  //
+  //   // name = name.toSet().toList();
+  //   // pg = pg.toSet().toList();
+  //   setState(() {
+  //     name = name.toSet().toList();
+  //     pg = pg.toSet().toList();
+  //     //print("$name  88889978");
+  //   });
+  //
+  //   return "success";
+  // }
+  //
+  //
+  //
+  // Future<void> internet() async {
+  //   hasInternet = await InternetConnectionChecker().hasConnection;
+  //   result = await Connectivity().checkConnectivity();
+  // }
+  //
+  // @override
+  // void initState() {
+  //
+  //   //initial();
+  //   timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+  //     getData();
+  //   });
+  //
+  //   internet();
+  //   Connectivity().onConnectivityChanged.listen((result) {
+  //     setState(() {
+  //       this.result = result;
+  //     });
+  //   });
+  //   InternetConnectionChecker().onStatusChange.listen((status) async {
+  //     final hasInternet = status == InternetConnectionStatus.connected;
+  //     setState(() {
+  //       this.hasInternet = hasInternet;
+  //     });
+  //
+  //   });
+  //   super.initState();
+  //
+  //   //print("url type: ${widget.check_url}");
+  // }
+  //
+  //
+
+  Future<void> initial() async {
     loginData = await SharedPreferences.getInstance();
     setState(() {
       username = loginData.getString('username');
+      ipAddress = loginData.getString('ip');
+      data = loginData.getStringList('dataValues');
     });
-  }
 
-
-  String userName = " ";
-  String ipAddress = "192.168.1.18:8000";
-
-   getData(){
-
-    if(result == ConnectivityResult.wifi) {
-      //print("wifi =============_________(((((((((()))))))");
+    if (ipAddress == null) {
+      fireData();
+    } else if (data == null) {
+      if (ipAddress.toString() != 'false') {
+        final response = await http.get(Uri.parse(
+          "http://$ipAddress/key",
+        ));
+        var fetchdata = jsonDecode(response.body);
+        if (response.statusCode > 0) {
+          // data = fetchdata;
+          setState(() {
+            data = fetchdata;
+            for (int i = 0; i < data.length; i++) {
+              localDataVal.add(data[i].toString());
+            }
+            //print("im local in if loop data in list $localDataVal");
+            loginData.setStringList('dataValues', localDataVal);
+            initial();
+            // print(data);
+          });
+        }
+      }
+    } else {
+      //print("im going into the getName of list in initial ");
       getName();
     }
-    else if((result == ConnectivityResult.mobile)&&(!mobNotifier)){
+  }
 
-      if(! mobNotifier){
-        // print(" im inside the if notifier class");
-        showSimpleNotification(
-          Text(" Please switch to wifi network ",
-            style: TextStyle(color: Colors.white),), background: Colors.red,
-        );
+  Future<void> fireData() async {
+
+    databaseReference.child(auth.currentUser.uid).once().then((DataSnapshot snapshot) async {
+
+      dataJson = snapshot.value;
+
+      print(dataJson);
+      userName = dataJson["name"];
+      ipLocal = dataJson["ip"].toString();
+
+      loginData.setString('ip', ipLocal);
+      loginData.setString('username', userName);
+      localDataVariableStorage();
+
+    });
+
+  }
+
+  localDataVariableStorage() async {
+
+    initial();
+
+    if ((ipAddress.toString().toLowerCase() != "false") && (ipAddress != null)) {
+
+      if (result == ConnectivityResult.wifi) {
+        if (count < 1) {
+          showSimpleNotification(
+            Text(
+              " You are on Wifi in left others ",
+              style: TextStyle(color: Colors.white),
+            ),
+            background: Colors.green,
+          );
+          count = 2;
+        }
+
+        final response = await http.get(Uri.parse(
+          "http://$ipAddress/key",
+        ));
+        var fetchdata = jsonDecode(response.body);
+        if (response.statusCode > 0) {
+          // data = fetchdata;
+          setState(() {
+            data = fetchdata;
+            for (int i = 0; i < data.length; i++) {
+              localDataVal.add(data[i].toString());
+            }
+
+            loginData.setStringList('dataValues', localDataVal);
+            initial();
+
+          });
+        }
+      }else {
+        print("no internet in wifi ");
       }
-      mobNotifier = true;
-    }
-    else if((result == ConnectivityResult.none)&&(!notifier))
-    {
-      if(!notifier){
-        // print(" im inside the if notifier class");
-        showSimpleNotification(
-          Text(" No Internet Connectivity ",
-            style: TextStyle(color: Colors.white),), background: Colors.red,
-        );
-      }
-      notifier = true;
     }
 
   }
+
+  wiFiChecker() {
+
+    if (result == ConnectivityResult.wifi) {
+
+      if ((acount == 0) && (ipAddress.toString().toLowerCase() != 'false')&& (ipAddress != null)) {
+
+      } else if (ipAddress == null) {
+
+        initial();
+      }
+      initial();
+    } else if ((result == ConnectivityResult.mobile)) {
+
+      if ((acount == 0) && (ipAddress.toString().toLowerCase() != 'false') && (ipAddress != null)) {
+
+      }
+    } else {
+      print("i am not connected to anything in wifi checker ___------------");
+    }
+  }
+
 
 
 
   Future getName() async {
-
-    final response = await http.get(Uri.parse("http://$ipAddress/key",));
-
-    var fetchData = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-
-      setState(() {
-        data = fetchData;
-      });}
 
     for (int i = 0; i < data.length; i++) {
       if (data[i].toString().contains("_Admin_Room") &&
@@ -127,26 +371,38 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
           (!name.contains(data[i].toString().contains("Kitchen")))) {
         name.add("Kitchen");
         pg.add("Kitchen");
+      } else if (data[i].toString().contains("_Bathroom1") &&
+          (!name.contains(data[i].toString().contains("Bathroom1")))) {
+        name.add("Bathroom1");
+        pg.add("Bathroom1");
+      }  else if (data[i].toString().contains("_Bathroom2") &&
+          (!name.contains(data[i].toString().contains("Bathroom2")))) {
+        name.add("Bathroom2");
+        pg.add("Bathroom2");
       } else if (data[i].toString().contains("_Bathroom") &&
           (!name.contains(data[i].toString().contains("Bathroom")))) {
         name.add("Bathroom");
         pg.add("Bathroom");
-      } else if (data[i].toString().contains("Master_Bedroom") &&
+      }else if (data[i].toString().contains("Master_Bedroom") &&
           (!name.contains(data[i].toString().contains("Master_Bedroom")))) {
         name.add("Master_Bedroom");
         pg.add("Master_Bedroom");
+      } else if (data[i].toString().contains("_Bedroom1") &&
+          !name.contains(data[i].toString().contains("Bedroom1"))) {
+        name.add("Bedroom1");
+        //print("----- bedroom1 $name name -------");
+        pg.add("Bedroom1");
+        //print("----- bedroom1 $pg pg -------");
+      } else if (data[i].toString().contains("_Bedroom2") &&
+          (!name.contains(data[i].toString().contains("Bedroom2")))) {
+        name.add("Bedroom2");
+        //print("----- bedroom1 $name name -------");
+        pg.add("Bedroom2");
+        //print("----- bedroom1 $pg pg -------");
       } else if (data[i].toString().contains("_Bedroom") &&
           (!name.contains(data[i].toString().contains("Bedroom")))) {
         name.add("Bedroom");
         pg.add("Bedroom");
-      } else if (data[i].toString().contains("_Bedroom1") &&
-          (!name.contains(data[i].toString().contains("Bedroom1")))) {
-        name.add("Bedroom1");
-        pg.add("Bedroom1");
-      } else if (data[i].toString().contains("_Bedroom2") &&
-          (!name.contains(data[i].toString().contains("Bedroom2")))) {
-        name.add("Bedroom2");
-        pg.add("Bedroom2");
       } else if (data[i].toString().contains("_Store_Room") &&
           (!name.contains(data[i].toString().contains("Store_Room")))) {
         name.add("Store_Room");
@@ -172,18 +428,30 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
 
     // name = name.toSet().toList();
     // pg = pg.toSet().toList();
+
     setState(() {
       name = name.toSet().toList();
       pg = pg.toSet().toList();
       //print("$name  88889978");
     });
 
-    return "success";
+    //return "success";
   }
 
-
-
   Future<void> internet() async {
+
+    Connectivity().onConnectivityChanged.listen((result) {
+      setState(() {
+        this.result = result;
+      });
+    });
+
+    InternetConnectionChecker().onStatusChange.listen((status) async {
+      final hasInternet = status == InternetConnectionStatus.connected;
+      setState(() {
+        this.hasInternet = hasInternet;
+      });
+    });
     hasInternet = await InternetConnectionChecker().hasConnection;
     result = await Connectivity().checkConnectivity();
   }
@@ -191,28 +459,21 @@ class _TabLeftOthersContainerState extends State<TabLeftOthersContainer> {
   @override
   void initState() {
 
-    //initial();
     timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
-      getData();
+      internet();
+      // getName();
     });
 
-    internet();
-    Connectivity().onConnectivityChanged.listen((result) {
-      setState(() {
-        this.result = result;
-      });
-    });
-    InternetConnectionChecker().onStatusChange.listen((status) async {
-      final hasInternet = status == InternetConnectionStatus.connected;
-      setState(() {
-        this.hasInternet = hasInternet;
-      });
-
+    initial();
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      wiFiChecker();
+      // getName();
     });
     super.initState();
 
-    //print("url type: ${widget.check_url}");
   }
+
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

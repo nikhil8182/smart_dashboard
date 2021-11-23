@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightBottomContainer.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightTimeContainer.dart';
-
 import 'TabRightBottomPowerContainer.dart';
 
 class TabRightContainer extends StatefulWidget {

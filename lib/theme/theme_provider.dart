@@ -1,7 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:intl/intl.dart';
 
 class ThemeProvider extends ChangeNotifier {
+
+  Timer timer;
+  DateTime now ;
+  var timeFormat ;
+  int time = 0;
+  int sharedTime = 0;
   ThemeMode themeMode = ThemeMode.system;
 
 
@@ -14,6 +23,18 @@ class ThemeProvider extends ChangeNotifier {
   //   }
   // }
 
+  _time() {
+    //ignore:avoid_print
+    //print(" 2.2 im printing time in getime state");
+    DateTime now = DateTime.now();
+    timeFormat = DateFormat('HH').format(now);
+    time = int.parse(timeFormat.toString());
+    //ignore:avoid_print
+    print("time is $time");
+  }
+
+
+
   void toggleTheme(bool isOn) {
     print(" sts about toggle theme $isOn");
     themeMode = isOn ? ThemeMode.light : ThemeMode.dark ;
@@ -22,7 +43,7 @@ class ThemeProvider extends ChangeNotifier {
 
 
   List<Data> listData = [
-    Data(data: "Room Name"),
+    Data(data: "Select Room "),
   ];
 
   void add(String newValue){

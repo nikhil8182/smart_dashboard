@@ -6,6 +6,7 @@ import 'package:smart_dashboard/loginPage.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+//minor changes are made on 23-nov-2021 5:30 pm
 
 FirebaseAuth auth = FirebaseAuth.instance;
 

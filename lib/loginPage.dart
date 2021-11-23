@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
   String loginState;
@@ -27,10 +28,10 @@ class _LoginPageState extends State<LoginPage> {
   bool hasInternet = false;
   ConnectivityResult result = ConnectivityResult.none;
 
-
   @override
   void initState() {
-
+    // Timer.periodic(Duration(seconds: 1), (Timer t) => getTime());
+    check_if_already_login();
     Connectivity().onConnectivityChanged.listen((result) {
       setState(() {
         this.result = result;
@@ -42,11 +43,8 @@ class _LoginPageState extends State<LoginPage> {
         this.hasInternet = hasInternet;
       });
     });
-
     email = TextEditingController();
     pass = TextEditingController();
-    check_if_already_login();
-
     super.initState();
   }
 
@@ -61,12 +59,17 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+
+
   @override
   void dispose() {
     email.dispose();
     pass.dispose();
     super.dispose();
   }
+
+
+
 
 
 
@@ -283,7 +286,7 @@ class _LoginPageState extends State<LoginPage> {
                               }
                               else{
                                 showSimpleNotification(
-                                  Text("No Network",
+                                  Text("No Network ",
                                     style: TextStyle(color: Colors.white),),
                                   background: Colors.red,
                                 );
