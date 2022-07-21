@@ -15,4 +15,10 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+
+    <!-- quick actions images  -->
+    <style name="QuickActions">
+        <item name="android:windowBackground">@drawable/quick_action</item>
+    </style>
+
 </resources>

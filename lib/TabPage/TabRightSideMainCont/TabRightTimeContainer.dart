@@ -17,6 +17,7 @@ class TabRightTimeContainer extends StatefulWidget {
 
 class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
   Timer timer;
+  Timer timer1;
   DateTime now ;
   String month ;
   String formattedDate ;
@@ -31,6 +32,7 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
   double temp ;
   LocationData _currentPosition;
   String ic = " ";
+
 
   Location location = Location();
 
@@ -72,6 +74,13 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
     Timer.periodic(Duration(minutes: 10), (Timer t) => getLoc());
         super.initState();
   }
+
+  // @override
+  // void dispose() {
+  //   timer?.cancel();
+  //   timer1?.cancel();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -229,5 +238,4 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
       });
     });
   }
-
 }

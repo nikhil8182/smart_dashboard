@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_dashboard/TabPage/TabLeftSideMainCont/TabLeftCont.dart';
 import 'package:smart_dashboard/TabPage/TabRightSideMainCont/TabRightContainer.dart';
+import 'package:smart_dashboard/theme/theme_provider.dart';
 
 import '../loginPage.dart';
 
@@ -54,6 +56,11 @@ class _TabPageState extends State<TabPage> {
                         loginData.setBool('login', true);
                         Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) => LoginPage()));
+                        // Provider.of<ThemeProvider>(context, listen: false).logout();
+                        // loginData.setBool('login', true);
+                        // auth.signOut();
+                        // Navigator.pushReplacement(context,
+                        //     MaterialPageRoute(builder: (context) => LoginPage()));
                       },
                       child: SvgPicture.asset("images/icons/onwords.svg"))),
              TabLeftContainer(),

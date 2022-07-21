@@ -21,17 +21,6 @@ class ThemeProvider extends ChangeNotifier {
   ThemeMode sys = ThemeMode.system;
   ThemeMode aud ;
 
-
-
-  // bool get isDarkMode {
-  //   if (themeMode == ThemeMode.system) {
-  //     final brightness = SchedulerBinding.instance.window.platformBrightness;
-  //     return brightness == Brightness.dark;
-  //   } else {
-  //     return themeMode == ThemeMode.dark;
-  //   }
-  // }
-
   _time() {
     DateTime now = DateTime.now();
     timeFormat = DateFormat('HH').format(now);
@@ -41,45 +30,51 @@ class ThemeProvider extends ChangeNotifier {
   ThemeProvider(int darkValue , int darkTime) {
 
     _time();
-    if(darkValue == 0){
-      print("im inside the theme provider of if");
+    if(darkValue == 3){
+
       sharedTime = time;
-      print("the time is $sharedTime");
+
       if((sharedTime >= 18)||(sharedTime <= 7)){
         //aud = ThemeMode.light;
         aud = ThemeMode.dark;
-        print("the aud is $aud in if");
+
       }else{
         //aud = ThemeMode.dark;
         aud = ThemeMode.light;
-        print("the aud is $aud in elseeeee is ");
+
       }
     }
-    _themeMode = (darkValue == 0)? aud : sys;
-    print("theme mode value is  $_themeMode ");
+    _themeMode = (darkValue == 0)? sys : (darkValue == 1) ? lig :(darkValue == 2) ? dar : aud;
+
   }
 
   ThemeMode getTheme()=> _themeMode;
 
 
   void toggleTheme(bool isOn) {
-    print(" sts about toggle theme $isOn");
+
     _themeMode = isOn ? ThemeMode.light : ThemeMode.dark ;
     notifyListeners();
   }
+
+  // logout(){
+  //   _themeMode = aud;
+  //   //print("log out theme mode is $_themeMode ");
+  //   notifyListeners();
+  // }
 
 
   List<Data> listData = [
     Data(data: "Select Room "),
   ];
 
-  void add(String newValue){
+  add(String newValue){
     final task  = Data(data: newValue);
     listData.add(task);
     notifyListeners();
   }
 
-  void remove(Data data){
+  remove(Data data){
     listData.remove(data);
     notifyListeners();
   }

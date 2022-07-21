@@ -8,7 +8,7 @@ class TabLeftContainer extends StatefulWidget {
   _TabLeftContainerState createState() => _TabLeftContainerState();
 }
 
-class _TabLeftContainerState extends State<TabLeftContainer>     with WidgetsBindingObserver {
+class _TabLeftContainerState extends State<TabLeftContainer>with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {

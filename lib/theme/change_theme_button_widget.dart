@@ -19,16 +19,11 @@ class _ChangeThemeButtonWidgetState extends State<ChangeThemeButtonWidget> {
     return GestureDetector(
       onTap: (){
            setState(() {
-
              if(themeSts == false){
-              print("im inside the if cond");
                themeSts = true;
-               print("themests $themeSts");
              }
              else{
-               print("im inside the else cond");
                themeSts = false;
-               print("themests $themeSts");
              }
              final provider = Provider.of<ThemeProvider>(context, listen: false);
              provider.toggleTheme(themeSts);

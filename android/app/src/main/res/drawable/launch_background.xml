@@ -3,10 +3,16 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/white" />
 
+    <!-- //added on 09.04.2022 for image -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher"/>
+    </item>
     <!-- You can insert your own image assets here -->
     <!-- <item>
         <bitmap
             android:gravity="center"
             android:src="@mipmap/launch_image" />
-    </item> -->
+    <item> -->
 </layer-list>

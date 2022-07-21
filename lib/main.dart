@@ -4,6 +4,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_dashboard/loginPage.dart';
+import 'package:smart_dashboard/splashScreen.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,19 +12,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
-void main() {
+void main()async {
+
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
-
-
+  await Firebase.initializeApp();
+  
   // await SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,
   //   DeviceOrientation.portraitDown,
   // ]);
 
   SharedPreferences.getInstance().then((loginData) {
-
-    var isDarkTheme = loginData.getInt("darValue") ?? 0 ;
+    var isDarkTheme = loginData.getInt("darValue") ?? 3 ;
     var darkTime = loginData.getInt('time') ?? 0;
 
     runApp(MyApp(isDarkTheme,darkTime));
@@ -36,20 +36,41 @@ class MyApp extends StatelessWidget {
   MyApp(this.darkNum,this.darkTim);
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (context) => ThemeProvider(darkNum,darkTim),
-    builder: (context, _) {
-      final themeProvider = Provider.of<ThemeProvider>(context);
-
-      return OverlaySupport.global(
-        child:MaterialApp(
-        themeMode: themeProvider.getTheme(),
-        theme: MyThemes.lightTheme,
-        darkTheme: MyThemes.darkTheme,
-        home: LoginPage(),
-        debugShowCheckedModeBanner: false,
-      ),
-      );
-    },
-  );
+  Widget build(BuildContext context){
+    return ChangeNotifierProvider(
+        create: (context) => ThemeProvider(darkNum,darkTim),
+        builder: (context, _) {
+          final themeProvider = Provider.of<ThemeProvider>(context);
+          return OverlaySupport.global(
+            child: MaterialApp(
+              themeMode: themeProvider.getTheme(),
+              theme: MyThemes.lightTheme,
+              darkTheme: MyThemes.darkTheme,
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                // body: InstallationPage(),
+                body: LoginPage(),
+                // body: SplashScreenPage(),
+              ),
+            ),
+          );
+        }
+    );
+  }
+  //     ChangeNotifierProvider(
+  //   create: (context) => ThemeProvider(darkNum,darkTim),
+  //   builder: (context, _) {
+  //     final themeProvider = Provider.of<ThemeProvider>(context);
+  //
+  //     return OverlaySupport.global(
+  //       child:MaterialApp(
+  //       themeMode: themeProvider.getTheme(),
+  //       theme: MyThemes.lightTheme,
+  //       darkTheme: MyThemes.darkTheme,
+  //       home: LoginPage(),
+  //       debugShowCheckedModeBanner: false,
+  //     ),
+  //     );
+  //   },
+  // );
 }

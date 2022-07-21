@@ -71,10 +71,6 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -93,6 +89,9 @@ class _LoginPageState extends State<LoginPage> {
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight,
                   colors: [
+                    // Color.fromRGBO(255, 255, 255, 1.0),
+                    // Color.fromRGBO(255, 255, 255, 1.0),
+
                     Color.fromRGBO(0, 0, 0, 1.0),
                     Color.fromRGBO(38, 42, 45, 1.0),
                   ],
@@ -125,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                           end: Alignment.topRight,
                           colors: [
                             Color.fromRGBO(0, 0, 0, 1.0),
+                            // Color.fromRGBO(255, 255, 255, 1.0),
                             Color.fromRGBO(38, 42, 45, 1.0),
                           ],
                           stops: [
