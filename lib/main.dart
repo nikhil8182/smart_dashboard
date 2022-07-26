@@ -8,7 +8,7 @@ import 'package:smart_dashboard/splashScreen.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//major work on  theme,buttons, network error, shared preferences etc ... completed on 24-nov-2021
+//app completed on 26.07.2022
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 // body: InstallationPage(),
-                body: LoginPage(),
+                body: SplashScreenPage(),
                 // body: SplashScreenPage(),
               ),
             ),

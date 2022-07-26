@@ -52,8 +52,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> with TickerProvider
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor:  Theme.of(context).backgroundColor,
-      // backgroundColor:  Colors.white,
+      // backgroundColor:  Theme.of(context).backgroundColor,
+      backgroundColor:  Colors.white,
         body: Container(
           height: height*1.0,
           width: width*1.0,

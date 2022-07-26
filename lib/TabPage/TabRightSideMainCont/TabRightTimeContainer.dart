@@ -70,17 +70,18 @@ class _TabRightTimeContainerState extends State<TabRightTimeContainer> {
   void initState() {
     getLoc();
     ws = new WeatherFactory(key);
-    Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
-    Timer.periodic(Duration(minutes: 10), (Timer t) => getLoc());
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) => _getTime());
+    timer1 = Timer.periodic(Duration(minutes: 10), (Timer t) => getLoc());
         super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   timer?.cancel();
-  //   timer1?.cancel();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    timer?.cancel();
+    timer1?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

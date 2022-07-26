@@ -109,13 +109,41 @@ class _TabRightBottomPowerContainerState extends State<TabRightBottomPowerContai
       getDevice();
     }
   }
+var ownerId;
+  readData() async {
+    loginData = await SharedPreferences.getInstance();
+    databaseReference.child('family').once().then((value){
+      value.snapshot.children.forEach((element) {
+        for (var element in value.snapshot.children){
+          ownerId = element.value;
+          if(element.key == auth.currentUser.uid){
+            loginData.setString('ownerId', ownerId['owner-uid']);
+            authKey = loginData.getString('ownerId');
+            fireData();
+            break;
+          }else{
+            loginData.setString('ownerId', auth.currentUser.uid);
+            authKey = loginData.getString('ownerId');
+            fireData();
+          }
+        }
+      });
+    });
+  }
 
   firstProcess() async {
     loginData = await SharedPreferences.getInstance();
     setState(() {
       authKey = loginData.getString('ownerId');
-      fireData();
+      if((authKey == null)||(authKey == " "))
+        {
+          readData();
+        }else{
+        // print("readdata");
+        fireData();
+      }
     });
+
   }
 
   Future<void> fireData() async {
@@ -268,6 +296,13 @@ class _TabRightBottomPowerContainerState extends State<TabRightBottomPowerContai
     });
     super.initState();
   }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {

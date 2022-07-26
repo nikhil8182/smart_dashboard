@@ -25,8 +25,7 @@ class TabLeftMainTitleContainer extends StatefulWidget {
       _TabLeftMainTitleContainerState();
 }
 
-class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
-    with WidgetsBindingObserver {
+class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>with WidgetsBindingObserver {
   var task;
   var taskValue;
   List data = [];
@@ -82,8 +81,20 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
     buttonsList.clear();
     // print("data.button  ${data.length}");
 
+    // for (int i = 0; i < data.length; i++) {
+    //   buttonOffline(i);
+    // }
     for (int i = 0; i < data.length; i++) {
-      buttonOffline(i);
+      //print("im inside the build button");
+      if(ip.toLowerCase().toString() == 'false'){
+        //print(" !!!!!!!!!!!!!!!!!!!!!!!!! im inside the button online!!!!!!!!!!!!!!!!!!!!1 ");
+        buttonOnline(i);
+      }
+      else{
+        //print("----------------- im inside the  buttonoffline ------------");
+        buttonOffline(i);
+      }
+
     }
       buttonsList = buttonsList.toSet().toList();
     return buttonsList;
@@ -91,24 +102,22 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
 
   _buildFanSlideWithNames(){
     buttonsList1.clear();
-    // print("data in fan slide  ${fanData.length}");
-
-      // print("data.length %%%%%%%%%%%%%%  ${data.length}");
     if(fanData.isNotEmpty){
-      // print("data");
       for(int i = 0; i < fanData.length; i++) {
-        // print("im inside the build button");
-        // print(i);
-        // print(fanData[i]);
-        fanSlide(i);
+        if(ip.toLowerCase().toString() == 'false')
+        {
+          offlineFanSlide(i);
+        }else{
+          offlineFanSlide(i);
+        }
       }
     }
-      buttonsList1 = buttonsList1.toSet().toList();
+    buttonsList1 = buttonsList1.toSet().toList();
 
     return buttonsList1;
   }
 
-  void fanSlide(int i) {
+  offlineFanSlide(int i){
     if (task.data == "Select Room") {
       Container(
         height: MediaQuery.of(context).size.height * 0.010,
@@ -221,308 +230,376 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
             )),
       ));
     }
-
   }
 
-  // buttonOffline(int i) {
-  //   if (dataValue[i]["Device_Type"].toString().contains("Light") &&
-  //       data[i].toString() == task.data) {
-  //     //print("im inside the button above button list container ${dataValue[i]}");
-  //     // print("$buttonsList ");
-  //     buttonsList.add(Container(
-  //       child: InkWell(
-  //           onTap: () {
-  //             setState(() {
-  //               timeCount = 1;
-  //               dataValue[i]["Device_Status"] = !dataValue[i]["Device_Status"];
-  //               updateValue(dataValue[i]["id"], dataValue[i]["Device_Name"],
-  //                   dataValue[i]["Device_Status"], 0);
-  //             });
-  //           },
-  //           child: Container(
-  //               margin: EdgeInsets.all(5.0),
-  //               padding: EdgeInsets.all(20.0),
-  //               height: MediaQuery.of(context).size.height * 0.20,
-  //               width: MediaQuery.of(context).size.width * 0.12,
-  //               decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(25.0),
-  //                 color: (dataValue[i]["Device_Status"] == false)
-  //                     ? Theme.of(context).scaffoldBackgroundColor
-  //                     : Color.fromRGBO(247, 179, 28, 1.0),
-  //               ),
-  //               child: SingleChildScrollView(
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Container(
-  //                       height: MediaQuery.of(context).size.height * 0.060,
-  //                       width: MediaQuery.of(context).size.width * 0.04,
-  //                       decoration: BoxDecoration(
-  //                           color: (dataValue[i]["Device_Status"] == false)
-  //                               ? Color.fromRGBO(247, 179, 28, 0.19)
-  //                               : Theme.of(context).canvasColor,
-  //                           borderRadius: BorderRadius.circular(15.0)),
-  //                       child: Center(
-  //                         child: SvgPicture.asset(
-  //                           "images/icons/light.svg",
-  //                           height: MediaQuery.of(context).size.height * 0.035,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     SizedBox(
-  //                       height: MediaQuery.of(context).size.height * 0.010,
-  //                     ),
-  //                     (dataValue[i]["Device_Status"] == true)
-  //                         ? Text(
-  //                             dataValue[i]["Device_Name"],
-  //                             style: GoogleFonts.poppins(
-  //                                 color: (dataValue[i]["Device_Status"] == false)
-  //                                     ? Theme.of(context).backgroundColor
-  //                                     : Theme.of(context).cardColor,
-  //                                 fontSize:
-  //                                     MediaQuery.of(context).size.height * 0.016),
-  //                           )
-  //                         : Text(
-  //                             dataValue[i]["Device_Name"],
-  //                             style: GoogleFonts.poppins(
-  //                                 color: (dataValue[i]["Device_Status"] == false)
-  //                                     ? Theme.of(context).backgroundColor
-  //                                     : Theme.of(context).cardColor,
-  //                                 fontSize:
-  //                                     MediaQuery.of(context).size.height * 0.016),
-  //                           ),
-  //                     (dataValue[i]["Device_Status"] == false)
-  //                         ? Text(
-  //                             "off",
-  //                             style: GoogleFonts.poppins(
-  //                                 color: (dataValue[i]["Device_Status"] == false)
-  //                                     ? Theme.of(context).backgroundColor
-  //                                     : Theme.of(context).cardColor,
-  //                                 fontSize:
-  //                                     MediaQuery.of(context).size.height * 0.015),
-  //                           )
-  //                         : Text(
-  //                             "On",
-  //                             style: GoogleFonts.poppins(
-  //                                 color: (dataValue[i]["Device_Status"] == false)
-  //                                     ? Theme.of(context).backgroundColor
-  //                                     : Theme.of(context).cardColor,
-  //                                 fontSize:
-  //                                     MediaQuery.of(context).size.height * 0.015),
-  //                           ),
-  //                   ],
-  //                 ),
-  //               ))),
-  //     ));
-  //   }
-  //   else if (dataValue[i]["Device_Type"].toString().contains("Valve") &&
-  //       data[i].toString() == task.data) {
-  //     //print("im inside the button above button list container ${dataValue[i]}");
-  //     // print("$buttonsList ");
-  //     buttonsList.add(Container(
-  //       child: InkWell(
-  //           onTap: () {
-  //             setState(() {
-  //               dataValue[i]["Device_Status"] = !dataValue[i]["Device_Status"];
-  //               //print(dataValue[i]["Device_Status"]);
-  //               updateValue(dataValue[i]["id"], dataValue[i]["Device_Name"],
-  //                   dataValue[i]["Device_Status"], 0);
-  //             });
-  //           },
-  //           child: Container(
-  //               margin: EdgeInsets.all(5.0),
-  //               padding: EdgeInsets.all(20.0),
-  //               height: MediaQuery.of(context).size.height * 0.20,
-  //               width: MediaQuery.of(context).size.width * 0.12,
-  //               decoration: BoxDecoration(
-  //                 borderRadius: BorderRadius.circular(25.0),
-  //                 color: (dataValue[i]["Device_Status"] == false)
-  //                     ? Theme.of(context).scaffoldBackgroundColor
-  //                     : Color.fromRGBO(247, 179, 28, 1.0),
-  //               ),
-  //               child: Column(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 crossAxisAlignment: CrossAxisAlignment.center,
-  //                 children: [
-  //                   Container(
-  //                     height: MediaQuery.of(context).size.height * 0.08,
-  //                     width: MediaQuery.of(context).size.width * 0.25,
-  //                     child: SvgPicture.asset(
-  //                       "images/valve.svg",
-  //                       height: MediaQuery.of(context).size.height * 0.010,
-  //                     ),
-  //                   ),
-  //                   SizedBox(
-  //                     height: MediaQuery.of(context).size.height * 0.015,
-  //                   ),
-  //                   Container(
-  //                     child: Column(
-  //                       children: [
-  //                         AutoSizeText(
-  //                           dataValue[i]["Device_Name"].toString(),
-  //                           style: GoogleFonts.robotoSlab(
-  //                               /*fontSize: 12,*/ color: Colors.white),
-  //                           maxLines: 1,
-  //                           minFontSize: 7,
-  //                         )
-  //                       ],
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ))),
-  //     ));
-  //   }
-  //   else if (dataValue[i]["Device_Type"].toString().contains("Switch") &&
-  //       data[i].toString() == task.data) {
-  //     buttonsList.add(Container(
-  //         child: InkWell(
-  //             onTap: () {
-  //               setState(() {
-  //                 dataValue[i]["Device_Status"] = !dataValue[i]["Device_Status"];
-  //                 updateValue(dataValue[i]["id"], dataValue[i]["Device_Name"], dataValue[i]["Device_Status"], 0);
-  //                 //updateValue(dataValue[i]["id"],dataValue[i]["Device_Status"]);
-  //               });
-  //             },
-  //             child: Container(
-  //                 // height: MediaQuery.of(context).size.height * 0.12,
-  //                 // width: MediaQuery.of(context).size.width * 0.265,
-  //             margin: EdgeInsets.all(5.0),
-  //             padding: EdgeInsets.all(20.0),
-  //             height: MediaQuery.of(context).size.height * 0.20,
-  //             width: MediaQuery.of(context).size.width * 0.12,
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(25.0),
-  //               color: (dataValue[i]["Device_Status"] == false)
-  //                   ? Theme.of(context).scaffoldBackgroundColor
-  //                   : Color.fromRGBO(247, 179, 28, 1.0),
-  //             ),
-  //                 child: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Container(
-  //                       height: MediaQuery.of(context).size.height * 0.060,
-  //                       width: MediaQuery.of(context).size.width * 0.04,
-  //                       decoration: BoxDecoration(
-  //                           color: (dataValue[i]["Device_Status"] == false)
-  //                               ? Color.fromRGBO(247, 179, 28, 0.19)
-  //                               : Theme.of(context).canvasColor,
-  //                           borderRadius: BorderRadius.circular(15.0)),
-  //                       child: Center(
-  //                         child: dataValue[i]["Device_Name"].toString().contains("TV")
-  //                             ? Image(
-  //                           image: AssetImage(
-  //                             "images/tv.png",
-  //                           ),
-  //                           color: Color.fromRGBO(247, 179, 28, 1.0),
-  //                           height:
-  //                           MediaQuery.of(context).size.height * 0.035,
-  //                         )
-  //                             : dataValue[i]["Device_Name"]
-  //                             .toString()
-  //                             .contains("Home Theatre")
-  //                             ? Image(
-  //                           image: AssetImage(
-  //                             "images/home-theater.png",
-  //                           ),
-  //                           color: Color.fromRGBO(247, 179, 28, 1.0),
-  //                           height: MediaQuery.of(context).size.height *
-  //                               0.035,
-  //                         )
-  //                             : dataValue[i]["Device_Name"]
-  //                             .toString()
-  //                             .contains("Ac")
-  //                             ? Image(
-  //                           image: AssetImage(
-  //                             "images/ac.png",
-  //                           ),
-  //                           color: Color.fromRGBO(247, 179, 28, 1.0),
-  //                           height:
-  //                           MediaQuery.of(context).size.height *
-  //                               0.035,
-  //                         )
-  //                             : dataValue[i]["Device_Name"]
-  //                             .toString()
-  //                             .contains("Heater")
-  //                             ? Image(
-  //                           image: AssetImage(
-  //                             "images/water-heater.png",
-  //                           ),
-  //                           color: Color.fromRGBO(247, 179, 28, 1.0),
-  //                           height: MediaQuery.of(context)
-  //                               .size
-  //                               .height *
-  //                               0.035,
-  //                         )
-  //                             : dataValue[i]["Device_Name"]
-  //                             .toString()
-  //                             .contains("Printer")
-  //                             ? Image(
-  //                           image: AssetImage(
-  //                             "images/printer.png",
-  //                           ),
-  //                           color: Color.fromRGBO(247, 179, 28, 1.0),
-  //                           height: MediaQuery.of(context)
-  //                               .size
-  //                               .height *
-  //                               0.035,
-  //                         )
-  //                             : Image(
-  //                           image: AssetImage(
-  //                             "images/socket.png",
-  //                           ),
-  //                           color: Color.fromRGBO(247, 179, 28, 1.0),
-  //                           height: MediaQuery.of(context)
-  //                               .size
-  //                               .height *
-  //                               0.035,
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     SizedBox(
-  //                       height: MediaQuery.of(context).size.height * 0.010,
-  //                     ),
-  //                     (dataValue[i]["Device_Status"] == true)
-  //                         ? Text(
-  //                       dataValue[i]["Device_Name"],
-  //                       style: GoogleFonts.poppins(
-  //                           color: (dataValue[i]["Device_Status"] == false)
-  //                               ? Theme.of(context).backgroundColor
-  //                               : Theme.of(context).cardColor,
-  //                           fontSize:
-  //                           MediaQuery.of(context).size.height * 0.016),
-  //                     )
-  //                         : Text(
-  //                       dataValue[i]["Device_Name"],
-  //                       style: GoogleFonts.poppins(
-  //                           color: (dataValue[i]["Device_Status"] == false)
-  //                               ? Theme.of(context).backgroundColor
-  //                               : Theme.of(context).cardColor,
-  //                           fontSize:
-  //                           MediaQuery.of(context).size.height * 0.016),
-  //                     ),
-  //                     (dataValue[i]["Device_Status"] == false)
-  //                         ? Text(
-  //                       "off",
-  //                       style: GoogleFonts.poppins(
-  //                           color: (dataValue[i]["Device_Status"] == false)
-  //                               ? Theme.of(context).backgroundColor
-  //                               : Theme.of(context).cardColor,
-  //                           fontSize:
-  //                           MediaQuery.of(context).size.height * 0.015),
-  //                     )
-  //                         : Text(
-  //                       "On",
-  //                       style: GoogleFonts.poppins(
-  //                           color: (dataValue[i]["Device_Status"] == false)
-  //                               ? Theme.of(context).backgroundColor
-  //                               : Theme.of(context).cardColor,
-  //                           fontSize:
-  //                           MediaQuery.of(context).size.height * 0.015),
-  //                     ),
-  //                   ],
-  //                 )))));
-  //   }
-  // }
+  buttonOnline(int i){
+    if(dataValue[i]["Device_Type"].toString().contains("Light") &&
+        dataValue[i]["Room"].toString() == task.data) {
+      buttonsList.add(Container(
+        child: InkWell(
+            onTap: () {
+              setState(() {
+                dataValue[i]["Device_Status"] = !dataValue[i]["Device_Status"];
+                updateValue(dataValue[i]["id"],dataValue[i]["Device_Name"],dataValue[i]["Device_Status"],0);
+              });
+            },
+            child: Container(
+                height: MediaQuery.of(context).size.height * 0.20,
+                width: MediaQuery.of(context).size.width * 0.12,
+                padding: const EdgeInsets.all(10),
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    color: !dataValue[i]["Device_Status"] ?
+                    Theme.of(context).scaffoldBackgroundColor : Color.fromRGBO(247, 179, 28, 1.0),
+                    //color: Colors.orange,
+                //     boxShadow: [
+                //       BoxShadow(
+                //           offset: Offset(0, 0),
+                //           color: Colors.grey[700],
+                //           blurRadius: 1,
+                //           spreadRadius: 1),
+                //       BoxShadow(
+                //           offset: Offset(1, 1),
+                //           color: Colors.black87,
+                //           blurRadius: 1,
+                //           spreadRadius: 1)
+                //     ]),
+                // child: Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     Container(
+                //       height: MediaQuery.of(context).size.height * 0.08,
+                //       width: MediaQuery.of(context).size.width * 0.25,
+                //       child:
+                //       SvgPicture.asset(
+                //         "images/icons/light.svg",
+                //         height: MediaQuery.of(context).size.height * 0.010,
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       height: MediaQuery.of(context).size.height * 0.015,
+                //     ),
+                //     Container(
+                //       child: Column(
+                //         children: [
+                //           AutoSizeText(
+                //             dataValue[i]["Device_Name"].toString(),
+                //             style: GoogleFonts.robotoSlab(
+                //               /*fontSize: 12,*/ color: Colors.white),
+                //             maxLines: 1,
+                //             minFontSize: 7,
+                //           )
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // )
+                  borderRadius: BorderRadius.circular(25.0),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.060,
+                        width: MediaQuery.of(context).size.width * 0.04,
+                        decoration: BoxDecoration(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Color.fromRGBO(247, 179, 28, 0.19)
+                                : Theme.of(context).canvasColor,
+                            borderRadius: BorderRadius.circular(15.0)),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            "images/icons/light.svg",
+                            height: MediaQuery.of(context).size.height * 0.035,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.010,
+                      ),
+                      !dataValue[i]["Device_Status"]
+                          ? Text(
+                        dataValue[i]["Device_Name"],
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.016),
+                      )
+                          : Text(
+                        dataValue[i]["Device_Name"],
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.016),
+                      ),
+                      !dataValue[i]["Device_Status"]
+                          ? Text(
+                        "off",
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.015),
+                      )
+                          : Text(
+                        "On",
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.015),
+                      ),
+                    ],
+                  ),
+                ))),
+      ));
+    }
+    else if(dataValue[i]["Device_Type"].toString().contains("Valve") &&
+        dataValue[i]["Room"].toString() == task.data) {
+      buttonsList.add(Container(
+        child: InkWell(
+            onTap: () {
+              setState(() {
+                dataValue[i]["Device_Status"] = !dataValue[i]["Device_Status"];
+                updateValue(dataValue[i]["id"],dataValue[i]["Device_Name"],dataValue[i]["Device_Status"],0);
+              });
+            },
+            child: Container(
+                margin: EdgeInsets.all(5.0),
+                padding: EdgeInsets.all(20.0),
+                height: MediaQuery.of(context).size.height * 0.20,
+                width: MediaQuery.of(context).size.width * 0.12,
+                decoration: BoxDecoration(
+                    //color: Colors.orange,
+                  borderRadius: BorderRadius.circular(25.0),
+                  color: !dataValue[i]["Device_Status"]
+                      ? Theme.of(context).scaffoldBackgroundColor
+                      : Color.fromRGBO(247, 179, 28, 1.0),
+                ),
+                child: SingleChildScrollView(
+            child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.060,
+                  width: MediaQuery.of(context).size.width * 0.04,
+                  decoration: BoxDecoration(
+                      color: !dataValue[i]["Device_Status"]
+                          ? Color.fromRGBO(247, 179, 28, 0.19)
+                          : Theme.of(context).canvasColor,
+                      borderRadius: BorderRadius.circular(15.0)),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      "images/valve.svg",
+                      height: MediaQuery.of(context).size.height * 0.020,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.010,
+                ),
+                !dataValue[i]["Device_Status"]
+                    ? Text(
+                  dataValue[i]["Device_Name"],
+                  style: GoogleFonts.poppins(
+                      color:!dataValue[i]["Device_Status"]
+                          ? Theme.of(context).backgroundColor
+                          : Theme.of(context).cardColor,
+                      fontSize:
+                      MediaQuery.of(context).size.height * 0.016),
+                )
+                    : Text(
+                  dataValue[i]["Device_Name"],
+                  style: GoogleFonts.poppins(
+                      color: !dataValue[i]["Device_Status"]
+                          ? Theme.of(context).backgroundColor
+                          : Theme.of(context).cardColor,
+                      fontSize:
+                      MediaQuery.of(context).size.height * 0.016),
+                ),
+                !dataValue[i]["Device_Status"]
+                    ? Text(
+                  "off",
+                  style: GoogleFonts.poppins(
+                      color: !dataValue[i]["Device_Status"]
+                          ? Theme.of(context).backgroundColor
+                          : Theme.of(context).cardColor,
+                      fontSize:
+                      MediaQuery.of(context).size.height * 0.015),
+                )
+                    : Text(
+                  "On",
+                  style: GoogleFonts.poppins(
+                      color:!dataValue[i]["Device_Status"]
+                          ? Theme.of(context).backgroundColor
+                          : Theme.of(context).cardColor,
+                      fontSize:
+                      MediaQuery.of(context).size.height * 0.015),
+                ),
+              ],
+            ),
+        ))
+        )));
+    }
+    else if(dataValue[i]["Device_Type"].toString().contains("Switch") &&
+        dataValue[i]["Room"].toString() == task.data) {
+      buttonsList.add(Container(
+          child: InkWell(
+              onTap: () {
+                setState(() {
+                  dataValue[i]["Device_Status"] = !dataValue[i]["Device_Status"];
+                  updateValue(dataValue[i]["id"],dataValue[i]["Device_Name"],dataValue[i]["Device_Status"],0);
+                });
+              },
+              child: Container(
+                  margin: EdgeInsets.all(5.0),
+                  padding: EdgeInsets.all(20.0),
+                  height: MediaQuery.of(context).size.height * 0.20,
+                  width: MediaQuery.of(context).size.width * 0.12,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: !dataValue[i]["Device_Status"]
+                        ? Theme.of(context).scaffoldBackgroundColor
+                        : Color.fromRGBO(247, 179, 28, 1.0),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.060,
+                        width: MediaQuery.of(context).size.width * 0.04,
+                        decoration: BoxDecoration(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Color.fromRGBO(247, 179, 28, 0.19)
+                                : Theme.of(context).canvasColor,
+                            borderRadius: BorderRadius.circular(15.0)),
+                        child: Center(
+                          child: dataValue[i]["Device_Name"].toString().contains("TV")
+                              ? Image(
+                            image: AssetImage(
+                              "images/tv.png",
+                            ),
+                            color: Color.fromRGBO(247, 179, 28, 1.0),
+                            height:
+                            MediaQuery.of(context).size.height * 0.035,
+                          )
+                              : dataValue[i]["Device_Name"]
+                              .toString()
+                              .contains("Home Theatre")
+                              ? Image(
+                            image: AssetImage(
+                              "images/home-theater.png",
+                            ),
+                            color: Color.fromRGBO(247, 179, 28, 1.0),
+                            height: MediaQuery.of(context).size.height *
+                                0.035,
+                          )
+                              : dataValue[i]["Device_Name"]
+                              .toString()
+                              .contains("Ac")
+                              ? Image(
+                            image: AssetImage(
+                              "images/ac.png",
+                            ),
+                            color: Color.fromRGBO(247, 179, 28, 1.0),
+                            height:
+                            MediaQuery.of(context).size.height *
+                                0.035,
+                          )
+                              : dataValue[i]["Device_Name"]
+                              .toString()
+                              .contains("Heater")
+                              ? Image(
+                            image: AssetImage(
+                              "images/water-heater.png",
+                            ),
+                            color: Color.fromRGBO(247, 179, 28, 1.0),
+                            height: MediaQuery.of(context)
+                                .size
+                                .height *
+                                0.035,
+                          )
+                              : dataValue[i]["Device_Name"]
+                              .toString()
+                              .contains("Printer")
+                              ? Image(
+                            image: AssetImage(
+                              "images/printer.png",
+                            ),
+                            color: Color.fromRGBO(247, 179, 28, 1.0),
+                            height: MediaQuery.of(context)
+                                .size
+                                .height *
+                                0.035,
+                          )
+                              : Image(
+                            image: AssetImage(
+                              "images/socket.png",
+                            ),
+                            color: Color.fromRGBO(247, 179, 28, 1.0),
+                            height: MediaQuery.of(context)
+                                .size
+                                .height *
+                                0.035,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.010,
+                      ),
+                      !dataValue[i]["Device_Status"]
+                          ? Text(
+                        dataValue[i]["Device_Name"],
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.016),
+                      )
+                          : Text(
+                        dataValue[i]["Device_Name"],
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.016),
+                      ),
+                      !dataValue[i]["Device_Status"]
+                          ? Text(
+                        "off",
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.015),
+                      )
+                          : Text(
+                        "On",
+                        style: GoogleFonts.poppins(
+                            color: !dataValue[i]["Device_Status"]
+                                ? Theme.of(context).backgroundColor
+                                : Theme.of(context).cardColor,
+                            fontSize:
+                            MediaQuery.of(context).size.height * 0.015),
+                      ),
+                    ],
+                  )
+
+              ))
+      ));
+    }
+  }
 
   buttonOffline(int i) {
     if (dataValue[i]["Device_Type"].toString().contains("Light") &&
@@ -544,10 +621,10 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
                 height: MediaQuery.of(context).size.height * 0.20,
                 width: MediaQuery.of(context).size.width * 0.12,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
                   color: (boolStatusValue[i] == false)
                       ? Theme.of(context).scaffoldBackgroundColor
                       : Color.fromRGBO(247, 179, 28, 1.0),
+                  borderRadius: BorderRadius.circular(25.0),
                 ),
                 child: SingleChildScrollView(
                   child: Column(
@@ -819,7 +896,9 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
                             MediaQuery.of(context).size.height * 0.015),
                       ),
                     ],
-                  )))));
+                  )
+              ))
+      ));
     }
   }
 
@@ -900,8 +979,8 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
   call() async {
     if(ip != null){
       if (ip.toString() != 'false'){
-        print("ip in call $ip");
-        print("ip in call ${ip != null}");
+        // print("ip in call $ip");
+        // print("ip in call ${ip != null}");
         final response = await http.get(Uri.parse("http://$ip/"));
         final fanResponse = await http.get(Uri.parse("http://$ip/fan/"));
 
@@ -929,7 +1008,6 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
         return response;
       }
       else if (ip.toString() == 'false'){
-
         Future.delayed(const Duration(milliseconds: 500), () {
           var val = smartHome['Devices'];
           var fanVal = smartHome['Fan'];
@@ -942,9 +1020,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
             }
             for (int i = 1; i <= fanVal.length; i++) {
               fanData.add(fanVal['Id$i']["Room"]);
-
             }
-
             result = true;
           });
         });
@@ -954,9 +1030,6 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
       initial();
     }
   }
-
-
-
 
   callValue() async {
     if (ip.toString() != 'false') {
@@ -968,7 +1041,6 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
       setState(() {
         dataValue.clear();
         fanDataValue.clear();
-
         for (int i = 0; i < val.length; i++) {
           dataValue.add(val[i]);
         }
@@ -980,14 +1052,13 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
       });
       return true;
     } else if (ip.toString() == 'false') {
-      //print("im inside the else if of call_value() ");
+      // print("im inside the else if of call_value() $ip");
       Future.delayed(const Duration(milliseconds: 500), () {
         var val = smartHome['Devices'];
         var fanVal = smartHome['Fan'];
         setState(() {
           dataValue.clear();
           fanDataValue.clear();
-
           for (int i = 1; i <= val.length; i++) {
             dataValue.add(val['Id$i']);
           }
@@ -1000,7 +1071,8 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
             // }
           }
           //dataValue;
-          //print("dataValues is $dataValue ");
+          // print("dataValues is $dataValue ");
+          // print("fanDataValue is $fanDataValue ");
           result2 = true;
           //print("$dataValue the data value inside the call_by setsstate");
         });
@@ -1059,7 +1131,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
     loginData = await SharedPreferences.getInstance();
     setState(() {
       ip = loginData.getString('ip') ?? null;
-      if(ip == "null")
+      if(ip == null)
       {
         firstProcess();
       }else{
@@ -1073,25 +1145,49 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
   }
 
   firstProcess() async {
+    // loginData = await SharedPreferences.getInstance();
+    // setState(() {
+    //   authKey = loginData.getString('ownerId');
+    //   fireData();
+    // });
     loginData = await SharedPreferences.getInstance();
-    setState(() {
-      authKey = loginData.getString('ownerId');
-      fireData();
+    databaseReference.child('family').once().then((value){
+      value.snapshot.children.forEach((element) {
+        for (var element in value.snapshot.children){
+          ownerId = element.value;
+          if(element.key == auth.currentUser.uid){
+            loginData.setString('ownerId', ownerId['owner-uid']);
+            authKey = loginData.getString('ownerId');
+            fireData();
+            break;
+          }else{
+            loginData.setString('ownerId', auth.currentUser.uid);
+            authKey = loginData.getString('ownerId');
+            fireData();
+          }
+        }
+      });
     });
   }
 
   checkData() async {
     //print("im inside the check data of first page");
     loginData = await SharedPreferences.getInstance();
-    if (ipLocal == "false") {
-      loginData.setString('ip', ipLocal);
-      loginData.setString('onlineIp', onlineIp);
-      initial();
-    } else {
-      loginData.setString('ip', ipLocal);
-      loginData.setString('onlineIp', onlineIp);
-      initial();
+    if(ipLocal != null){
+      if (ipLocal == "false") {
+        loginData.setString('ip', ipLocal);
+        loginData.setString('onlineIp', onlineIp);
+        initial();
+      } else {
+        loginData.setString('ip', ipLocal);
+        loginData.setString('onlineIp', onlineIp);
+        initial();
+      }
+    }else{
+      print("left main tile and light fan");
+      firstProcess();
     }
+
   }
 
   Future<void> fireData() async {
@@ -1118,6 +1214,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
         } else {
           ip = "false";
           smartHome = dataJson['SmartHome'];
+          // print("$ip in else 1123 tlmt");
           call();
         }
       });
@@ -1260,14 +1357,17 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
         }
       });
     initial().then((value) => statusValue());
+    // callValue();
+    timer = Timer.periodic(
+        Duration(seconds: 2),
+            (Timer t) {
+              callValue();
+              }
+    );
     // timer = Timer.periodic(
     //     Duration(milliseconds: 100),
     //         (Timer t) => initial().then((value) => statusValue()));
-
-
-
     super.initState();
-
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -1278,21 +1378,6 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
         if (internet) {
           call().then((value) => callValue());
         }
-        // else {
-        //   showDialog(
-        //       context: context,
-        //       builder: (_) =>
-        //           AlertDialog(
-        //             backgroundColor: Colors.black,
-        //             title: Text(
-        //               "No Internet Connection",
-        //               style: TextStyle(color: Colors.white),
-        //             ),
-        //             content: Text("Please check your Internet Connection",
-        //                 style: TextStyle(color: Colors.white)),
-        //           ));
-        //   //print("Connection: not present");
-        // }
       });
       timer = Timer.periodic(
           Duration(seconds: 3),
@@ -1300,21 +1385,6 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>
                 if (internet) {
                   call().then((value) => callValue());
                 }
-                // else {
-                //   showDialog(
-                //       context: context,
-                //       builder: (_) =>
-                //           AlertDialog(
-                //             backgroundColor: Colors.black,
-                //             title: Text(
-                //               "No Internet Connection",
-                //               style: TextStyle(color: Colors.white),
-                //             ),
-                //             content: Text(
-                //                 "Please check your Internet Connection",
-                //                 style: TextStyle(color: Colors.white)),
-                //           ));
-                // }
               })); //   _showScaffold("resume");
       // user returned to our app
     } else if (state == AppLifecycleState.inactive) {

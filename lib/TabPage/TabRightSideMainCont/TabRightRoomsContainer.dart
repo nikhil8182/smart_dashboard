@@ -35,7 +35,7 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
   var dataJson;
   List name = [];
   List pg = [];
-  List data;
+  List data=[];
   bool first;
   Timer timer;
   bool hasInternet = false;
@@ -199,9 +199,10 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
           smartDoor = doorData != null ? doorData['smartDoor'] : false;
           var len = smartHome['Devices'].length;
           for (int i = 1; i <= len; i++) {
+            // print(smartHome['Devices']['Id$i']['Room']);
             data.add(smartHome['Devices']['Id$i']['Room']);
           }
-          checkData();
+          // checkData();
           getName();
         }
       });
@@ -212,21 +213,27 @@ class _TabRightRoomsContainerState extends State<TabRightRoomsContainer> {
   checkData() async {
     //print("im inside the check data of first page");
     loginData = await SharedPreferences.getInstance();
-    if (ipLocal == "false") {
-      loginData.setString('username', userName);
-      loginData.setString('ip', ipLocal);
-      loginData.setString('onlineIp', onlineIp);
-      // loginData.setBool('owner', owner);
-      // loginData.setBool('smartDoor', smartDoor);
-      keyValues();
-    } else {
-      loginData.setString('ip', ipLocal);
-      loginData.setString('onlineIp', onlineIp);
-      loginData.setString('username', userName);
-      loginData.setBool('owner', owner);
-      loginData.setBool('smartDoor', smartDoor);
-      keyValues();
+    if(ipLocal != null){
+      if (ipLocal == "false") {
+        loginData.setString('username', userName);
+        loginData.setString('ip', ipLocal);
+        loginData.setString('onlineIp', onlineIp);
+        // loginData.setBool('owner', owner);
+        // loginData.setBool('smartDoor', smartDoor);
+        keyValues();
+      } else {
+        loginData.setString('ip', ipLocal);
+        loginData.setString('onlineIp', onlineIp);
+        loginData.setString('username', userName);
+        loginData.setBool('owner', owner);
+        loginData.setBool('smartDoor', smartDoor);
+        keyValues();
+      }
+    }else{
+      // print("right room checkdata");
+      firstProcess();
     }
+
   }
 
 
