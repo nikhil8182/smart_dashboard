@@ -45,24 +45,25 @@ class _TabPageState extends State<TabPage> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              SizedBox(
-                  height: height*0.25,
-                  child: GestureDetector(
-                      onDoubleTap: () async {
-                        loginData = await SharedPreferences.getInstance();
-                        loginData.setBool('login', true);
-                        loginData.clear();
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => LoginPage()));
-                        // Provider.of<ThemeProvider>(context, listen: false).logout();
-                        // loginData.setBool('login', true);
-                        // auth.signOut();
-                        // Navigator.pushReplacement(context,
-                        //     MaterialPageRoute(builder: (context) => LoginPage()));
-                      },
-                      child: SvgPicture.asset("images/icons/onwords.svg"))),
+              // SizedBox(
+              //     height: height*0.25,
+              //     child: GestureDetector(
+              //         onDoubleTap: () async {
+              //           loginData = await SharedPreferences.getInstance();
+              //           loginData.setBool('login', true);
+              //           loginData.clear();
+              //           Navigator.pushReplacement(context,
+              //               MaterialPageRoute(builder: (context) => LoginPage()));
+              //           // Provider.of<ThemeProvider>(context, listen: false).logout();
+              //           // loginData.setBool('login', true);
+              //           // auth.signOut();
+              //           // Navigator.pushReplacement(context,
+              //           //     MaterialPageRoute(builder: (context) => LoginPage()));
+              //         },
+              //         child: SvgPicture.asset("images/icons/onwords.svg"))),
              TabLeftContainer(),
               TabRightContainer()
+              // SecondDashBoard()
             ],
           ),
         ),

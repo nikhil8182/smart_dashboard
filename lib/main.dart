@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +9,7 @@ import 'package:smart_dashboard/splashScreen.dart';
 import 'package:smart_dashboard/theme/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-//app completed on 26.07.2022
+//app completed on 29.07.2022
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -21,7 +22,7 @@ void main()async {
   //   DeviceOrientation.portraitUp,
   //   DeviceOrientation.portraitDown,
   // ]);
-
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   SharedPreferences.getInstance().then((loginData) {
     var isDarkTheme = loginData.getInt("darValue") ?? 3 ;
     var darkTime = loginData.getInt('time') ?? 0;

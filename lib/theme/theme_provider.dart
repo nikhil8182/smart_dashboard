@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -89,8 +90,15 @@ class MyThemes {
     canvasColor: Colors.white,
     cardColor: Colors.white,
     textTheme:TextTheme(
-        bodyText2: TextStyle(color: Color.fromRGBO(
-        189, 186, 186, 1.0)),
+      headline2: TextStyle(color: Colors.grey,fontWeight: FontWeight.w800,),
+      subtitle2: GoogleFonts.inter(color: Colors.black,fontWeight: FontWeight.w800,fontSize:11.0),
+      headline5: TextStyle(color: Colors.white,fontWeight: FontWeight.w800,),
+      subtitle1: GoogleFonts.inter(color: Colors.white,fontWeight: FontWeight.w800,fontSize:11.0),
+      headline4: GoogleFonts.inter(color: Colors.white,fontWeight: FontWeight.w900),
+      headline6: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+      button: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold),
+      bodyText1: GoogleFonts.inter(color: Colors.white,fontWeight: FontWeight.w100,fontSize:11.0),
+      bodyText2: TextStyle(color: Color.fromRGBO(189, 186, 186, 1.0)),
 
     ),
     iconTheme: IconThemeData(color: Colors.purple.shade200, opacity: 0.8),
@@ -104,8 +112,14 @@ class MyThemes {
     canvasColor: Colors.white,
     // colorScheme: ColorScheme.light(),
     textTheme:TextTheme(
-        bodyText2: TextStyle(color: Color.fromRGBO(
-        219, 214, 214, 1.0))),//163, 163, 163, 1.0
+        headline2: TextStyle(color: Colors.grey,fontWeight: FontWeight.w800,),
+        headline5: TextStyle(color: Colors.black,fontWeight: FontWeight.w800,),
+        subtitle1: GoogleFonts.inter(color: Colors.black,fontWeight: FontWeight.w800,fontSize:11.0),
+        button: GoogleFonts.inter( color: Color.fromRGBO(62, 62, 62, 0.5), fontWeight: FontWeight.bold),
+        headline6: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+        headline4: GoogleFonts.inter(color: Colors.black,fontWeight: FontWeight.w900),
+        subtitle2: GoogleFonts.inter(color: Colors.black,fontWeight: FontWeight.w500,fontSize:11.0),
+        bodyText2: TextStyle(color: Color.fromRGBO(219, 214, 214, 1.0))),//163, 163, 163, 1.0
     iconTheme: IconThemeData(color: Colors.red, opacity: 0.8),
   );
 }

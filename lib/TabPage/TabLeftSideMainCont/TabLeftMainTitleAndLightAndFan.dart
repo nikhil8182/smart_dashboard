@@ -38,6 +38,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>wi
   String title;
   bool result = false;
   bool result2 = false;
+  bool result3 = false;
   Color c;
   bool isSwitched;
   Timer timer;
@@ -1094,6 +1095,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>wi
         {
           boolStatusValue.add(val[i]["Device_Status"]);
         }
+        result3 = true;
         // print(boolStatusValue);
       });
     } else if (ip.toString() == 'false') {
@@ -1118,6 +1120,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>wi
             //   fanDataValue.add(fanVal['Id$i']);
             // }
           }
+          result3 = true;
           //dataValue;
           //print("dataValues is $dataValue ");
           // result2 = true;
@@ -1184,7 +1187,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>wi
         initial();
       }
     }else{
-      print("left main tile and light fan");
+      // print("left main tile and light fan");
       firstProcess();
     }
 
@@ -1503,7 +1506,7 @@ class _TabLeftMainTitleContainerState extends State<TabLeftMainTitleContainer>wi
                   height: height * 0.015,
                 ),
                 //TabLeftFanContainer(),
-                result && result2
+                result && result2 && result3
                     ? Container(
                         height: height * 0.20,
                         width: width * 1.0,

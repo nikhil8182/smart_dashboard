@@ -118,7 +118,7 @@ class _TabLeftContainerState extends State<TabLeftContainer>with WidgetsBindingO
 
     return Container(
       height: height * 0.965,
-      width: width * 0.70,
+      width: width * 0.65,
       child: TabLeftMainTitleContainer(),
     );
   }

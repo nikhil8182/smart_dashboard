@@ -48,6 +48,9 @@ dependencies:
   auto_size_text:
   lottie:
   flutter_spinkit:
+  liquid_progress_indicator:
+  percent_indicator:
+
 
 dev_dependencies:
   flutter_test:
